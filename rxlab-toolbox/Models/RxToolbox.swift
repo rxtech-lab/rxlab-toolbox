@@ -12,8 +12,15 @@ extension UTType {
     static let toolboxDocument = UTType(exportedAs: "dev.rxlab.toolbox")
 }
 
-@Model
-final class RxToolboxDocument {
-    init() {
+struct RxToolboxDocument: FileDocument {
+    static var readableContentTypes: [UTType] { [.toolboxDocument] }
+
+    init(configuration: ReadConfiguration) throws {
+    }
+
+    init() {}
+
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        return .init(regularFileWithContents: Data())
     }
 }

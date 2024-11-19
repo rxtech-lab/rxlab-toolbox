@@ -5,6 +5,7 @@
 //  Created by Qiwei Li on 11/14/24.
 //
 
+import SwiftData
 import SwiftUI
 
 @main
@@ -16,13 +17,23 @@ struct RxlabToolbox: App {
     @State private var confirmManager = ConfirmManager()
 
     var body: some Scene {
-        DocumentGroup(editing: RxToolboxDocument.self, contentType: .toolboxDocument){
+        DocumentGroup(newDocument: RxToolboxDocument()) { _ in
             ContentView()
-                .environment(serverManager)
-                .environment(sheetManager)
-                .environment(alertManager)
-                .environment(mockTelegramKitManager)
-                .environment(confirmManager)
         }
+        .environment(serverManager)
+        .environment(sheetManager)
+        .environment(alertManager)
+        .environment(mockTelegramKitManager)
+        .environment(confirmManager)
+
+        WindowGroup(id: "welcome-window") {
+            WelcomeScreen()
+        }
+        // hide title bar
+        .windowStyle(.hiddenTitleBar)
+        .modelContainer(for: [
+            ProjectHistory.self,
+        ])
+        .defaultLaunchBehavior(.presented)
     }
 }
