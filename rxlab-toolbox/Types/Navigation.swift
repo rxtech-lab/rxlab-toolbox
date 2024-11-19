@@ -5,7 +5,21 @@
 //  Created by Qiwei Li on 11/14/24.
 //
 
+enum SideBarItem: Hashable {
+    case Adapter(any Adapter & Hashable)
+    
+    func hash(into hasher: inout Hasher) {
+        switch self {
+        case .Adapter(let adapter):
+            hasher.combine(adapter)
+        }
+    }
+    
+    static func == (lhs: SideBarItem, rhs: SideBarItem) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+}
+
 enum NavigationPath: Hashable {
-    case webhook(Webhook)
-    case chatroom(Chatroom)
+    case SideBar(SideBarItem)
 }

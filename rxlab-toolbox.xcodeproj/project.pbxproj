@@ -584,8 +584,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rxtech-lab/mock-telegram-server";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = exactVersion;
+				version = 1.3.0;
 			};
 		};
 		DFB14B032CEC43F200B3A43B /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {

@@ -15,6 +15,9 @@ extension UTType {
 struct RxToolboxDocument: FileDocument {
     static var readableContentTypes: [UTType] { [.toolboxDocument] }
 
+    var adapterData: [String: AdapterData] = [:]
+    var hasInitialized: Bool = false
+
     init(configuration: ReadConfiguration) throws {
     }
 

@@ -1,7 +1,6 @@
 import MockTelegramKit
 import SwiftUI
 
-typealias TGWebhook = MockTelegramKit.Webhook
 
 struct DetailRow: View {
     let title: String
@@ -39,7 +38,7 @@ struct WebhookDetail: View {
                 Section("Basic Information") {
                     DetailRow(title: "Chatroom ID", value: "\(currentWebhook.chatroomId)")
                     DetailRow(title: "Webhook URL", value: currentWebhook.url.absoluteString)
-                    DetailRow(title: "Status", value: currentWebhook.isAvtive ? "🟢 Active" : "🔴 Inactive")
+                    DetailRow(title: "Status", value: currentWebhook.isActive ? "🟢 Active" : "🔴 Inactive")
                 }
 
                 // Status Information Section
@@ -141,15 +140,4 @@ struct WebhookEditView: View {
             }
         }
     }
-}
-
-#Preview {
-    WebhookDetail(webhook: Webhook(
-        id: .init(),
-        chatroomId: 1,
-        url: .init(string: "https://google.com")!,
-        isAvtive: true,
-        lastError: nil,
-        lastUpdate: Date.now
-    ), showEditButton: true)
 }

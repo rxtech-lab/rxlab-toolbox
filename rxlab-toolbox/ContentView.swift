@@ -5,45 +5,23 @@ struct ContentView: View {
     @Environment(SheetManager.self) var sheetManager
     @Environment(AlertManager.self) var alertManager
     @Environment(ConfirmManager.self) var confirmManager
+    @Environment(AdapterManager.self) var adapterManager
+    @Binding var document: RxToolboxDocument
 
     @State private var selectedSidebarItem: NavigationPath?
     @State private var selectedWebhookDetail: Webhook?
 
     var body: some View {
-        Group {
-            NavigationSplitView {
-                // Sidebar
-                sidebarContent
-            } detail: {
-                NavigationStack {
-                    if let selection = selectedSidebarItem {
-                        switch selection {
-                        case let .webhook(webhook):
-                            WebhookDetail(webhook: webhook, showEditButton: true)
-                        case let .chatroom(chatroom):
-                            HSplitView {
-                                ChatroomDetail(chatroom: chatroom)
-                                if let selectedWebhookDetail {
-                                    WebhookDetail(webhook: selectedWebhookDetail, showEditButton: false)
-                                        .frame(minWidth: 200)
-                                } else {
-                                    Text("Select a webhook")
-                                }
-                            }
-                        }
-                    } else {
-                        EmptyView()
-                    }
-                }
-            }
+        NavigationSplitView {
+            // Sidebar
+            sidebarContent
         }
-        .onChange(of: selectedSidebarItem, { _, new in
-            Task {
-                if let new = new {
-                    await getWebhookDetail(path: new)
-                }
-            }
-        })
+            content: {
+            contentView
+        }
+            detail: {
+        }
+        .frame(idealHeight: 800)
         .confirmationDialog(
             confirmManager.confirmTitle,
             isPresented: confirmManager.isConfirmPresentedBinding,
@@ -72,6 +50,14 @@ struct ContentView: View {
         .sheet(isPresented: sheetManager.isSheetPresentedBinding) {
             sheetManager.sheetContent()
         }
+        .onAppear {
+            if !document.hasInitialized {
+                sheetManager.showSheet {
+                    SplashScreen(document: $document)
+                        .frame(height: 600)
+                }
+            }
+        }
         .navigationTitle(AppStrings.appName.rawValue)
         .navigationSplitViewStyle(.prominentDetail)
         .toolbar {
@@ -83,49 +69,41 @@ struct ContentView: View {
 
     private var sidebarContent: some View {
         List(selection: $selectedSidebarItem) {
-            Section("Webhooks") {
-                WebhookList { _ in
-                    // delete current selection if the selected webhook is deleted
-                    if let selectedSidebarItem = selectedSidebarItem,
-                       case let .webhook(webhook) = selectedSidebarItem,
-                       webhook.id == webhook.id {
-                        self.selectedSidebarItem = nil
+            Section(AppStrings.adapterSection.rawValue) {
+                ForEach(adapterManager.adapters, id: \.sidebarItem.id) { adapter in
+                    NavigationLink(value: NavigationPath.SideBar(.Adapter(adapter))) {
+                        Label(AppStrings.Telegram.adapterName.rawValue, systemImage: "bolt.fill")
                     }
                 }
             }
 
-            Section("Chatrooms") {
-                ChatroomList { _ in
-                    if let selectedSidebarItem = selectedSidebarItem,
-                       case let .chatroom(chatroom) = selectedSidebarItem,
-                       chatroom.id == chatroom.id {
-                        self.selectedSidebarItem = nil
-                    }
-                }
+            Section(AppStrings.storageSection.rawValue) {
+            }
+
+            Section(AppStrings.apiSection.rawValue) {
             }
         }
-        .frame(minWidth: 250)
+        .frame(minWidth: 200)
         .contextMenu {
-            WebhookContextMenu()
-            ChatroomContextMenu()
         }
     }
 
-    @MainActor
-    func getWebhookDetail(path: NavigationPath) async {
-        switch path {
-        case let .chatroom(chatroom):
-            guard let webhook = await ChatManager.shared.getWebhook(chatroomId: chatroom.id) else {
-                return
-            }
-            selectedWebhookDetail = Webhook.fromTGWebhook(webhook)
-            break
+    @ViewBuilder
+    private var contentView: some View {
+        switch selectedSidebarItem {
+        case let .SideBar(.Adapter(adapter)):
+            AnyView(adapter.contentView)
         default:
-            return
+            Text("Select an adapter")
         }
+    }
+
+    @ViewBuilder
+    private var detailView: some View {
+        Text("")
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(document: .constant(.init()))
 }

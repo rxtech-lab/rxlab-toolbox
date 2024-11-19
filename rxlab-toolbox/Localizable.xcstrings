@@ -1,7 +1,13 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "#%lld" : {
+
+    },
+    "Adapters" : {
 
     },
     "Add new chatroom" : {
@@ -23,6 +29,9 @@
           }
         }
       }
+    },
+    "API" : {
+
     },
     "Basic Information" : {
       "localizations" : {
@@ -47,16 +56,13 @@
     "Chatroom ID" : {
 
     },
-    "Chatroom: %lld" : {
-
-    },
-    "Chatrooms" : {
+    "Continue" : {
 
     },
     "Create a Chat Room" : {
 
     },
-    "Delete Webhook" : {
+    "Detail view" : {
 
     },
     "Edit Webhook" : {
@@ -99,7 +105,7 @@
     "Save" : {
 
     },
-    "Select a webhook" : {
+    "Select an adapter" : {
 
     },
     "Start" : {
@@ -123,6 +129,12 @@
     "Stop the server" : {
 
     },
+    "Storage" : {
+
+    },
+    "Telegram Adapter" : {
+
+    },
     "User %lld" : {
 
     },
@@ -135,7 +147,7 @@
     "Webhook URL" : {
 
     },
-    "Webhooks" : {
+    "Welcome to" : {
 
     },
     "You don't have any Chat Rooms yet." : {

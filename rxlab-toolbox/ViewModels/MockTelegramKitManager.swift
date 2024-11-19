@@ -8,20 +8,7 @@ import Combine
 import MockTelegramKit
 import SwiftUI
 
-struct Webhook: Identifiable, Hashable {
-    let id: UUID
-    let chatroomId: Int
-    let url: URL
-    let isAvtive: Bool
-    let lastError: String?
-    let lastUpdate: Date?
-
-    static func fromTGWebhook(_ tgWebhook: TGWebhook) -> Self {
-        Self(id: tgWebhook.id, chatroomId: tgWebhook.chatroomId, url: tgWebhook.url, isAvtive: tgWebhook.isActive, lastError: tgWebhook.lastError, lastUpdate: tgWebhook.lastUpdate)
-    }
-}
-
-struct Chatroom: Identifiable, Hashable {
+struct Chatroom: Codable, Identifiable, Hashable {
     let id: Int
 }
 
@@ -38,7 +25,7 @@ struct Chatroom: Identifiable, Hashable {
                     DispatchQueue.main.async {
                         Task {
                             self.webhooks = await ChatManager.shared.getAllWebhooks()
-                                .map { Webhook.fromTGWebhook($0.value) }
+                                .map { $0.value }
                         }
                     }
                 }
@@ -57,7 +44,7 @@ struct Chatroom: Identifiable, Hashable {
                 DispatchQueue.main.async {
                     Task {
                         self.webhooks = await ChatManager.shared.getAllWebhooks()
-                            .map { Webhook.fromTGWebhook($0.value) }
+                            .map { $0.value }
                         self.chatroom = await ChatManager.shared.getAllChatrooms().map {
                             Chatroom(id: $0)
                         }

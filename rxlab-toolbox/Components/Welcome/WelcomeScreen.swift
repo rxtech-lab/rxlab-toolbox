@@ -22,10 +22,10 @@ struct AppVersion {
 
 struct WelcomeScreen: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \ProjectHistory.createdAt, order: .reverse) private var recentProjects: [ProjectHistory]
     @Environment(\.dismiss) private var dismiss
     @Environment(\.newDocument) private var newDocument
     @Environment(\.openDocument) private var openDocument
+    @Environment(\.dismissWindow) private var dismissWindow
 
     var body: some View {
         HStack(spacing: 0) {
@@ -86,7 +86,7 @@ extension WelcomeScreen {
             if let url = panel.url {
                 Task {
                     try await openDocument(at: url)
-                    dismiss()
+                    dismissWindow(id: "welcome-window")
                 }
             }
         }

@@ -16,4 +16,10 @@ import SwiftUI
 
 enum AppStrings: LocalizedStringKey {
     case appName = "RxLab Toolbox"
+    case adapterSection = "Adapters"
+    case storageSection = "Storage"
+    case apiSection = "API"
+    enum Telegram: LocalizedStringKey {
+        case adapterName = "Telegram Adapter"
+    }
 }
