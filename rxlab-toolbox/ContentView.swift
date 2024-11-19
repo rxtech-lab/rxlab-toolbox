@@ -72,7 +72,7 @@ struct ContentView: View {
         .sheet(isPresented: sheetManager.isSheetPresentedBinding) {
             sheetManager.sheetContent()
         }
-        .navigationTitle("Mock Telegram")
+        .navigationTitle(AppStrings.appName.rawValue)
         .navigationSplitViewStyle(.prominentDetail)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {

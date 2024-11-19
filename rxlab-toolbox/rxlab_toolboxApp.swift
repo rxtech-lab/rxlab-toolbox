@@ -16,7 +16,7 @@ struct RxlabToolbox: App {
     @State private var confirmManager = ConfirmManager()
 
     var body: some Scene {
-        WindowGroup {
+        DocumentGroup(editing: RxToolboxDocument.self, contentType: .toolboxDocument){
             ContentView()
                 .environment(serverManager)
                 .environment(sheetManager)

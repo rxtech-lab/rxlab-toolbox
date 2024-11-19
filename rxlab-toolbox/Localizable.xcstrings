@@ -1,0 +1,143 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "#%lld" : {
+
+    },
+    "Add new chatroom" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加新的聊天室"
+          }
+        }
+      }
+    },
+    "Add new webhook" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加新的Webhook"
+          }
+        }
+      }
+    },
+    "Basic Information" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "基础信息"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        }
+      }
+    },
+    "Chatroom ID" : {
+
+    },
+    "Chatroom: %lld" : {
+
+    },
+    "Chatrooms" : {
+
+    },
+    "Create a Chat Room" : {
+
+    },
+    "Delete Webhook" : {
+
+    },
+    "Edit Webhook" : {
+
+    },
+    "Edit webhook details" : {
+
+    },
+    "Edited %lld time(s)" : {
+
+    },
+    "Emtpy Content" : {
+
+    },
+    "Host" : {
+
+    },
+    "Message" : {
+
+    },
+    "Mock Telegram Server Configuration" : {
+
+    },
+    "OK" : {
+
+    },
+    "Port" : {
+
+    },
+    "RxLab Toolbox" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RxLab 工具箱"
+          }
+        }
+      }
+    },
+    "Save" : {
+
+    },
+    "Select a webhook" : {
+
+    },
+    "Start" : {
+
+    },
+    "Start Server" : {
+
+    },
+    "Start the server" : {
+
+    },
+    "Status Information" : {
+
+    },
+    "Stop" : {
+
+    },
+    "Stop Server" : {
+
+    },
+    "Stop the server" : {
+
+    },
+    "User %lld" : {
+
+    },
+    "Webhook Configuration" : {
+
+    },
+    "Webhook URL" : {
+
+    },
+    "Webhooks" : {
+
+    },
+    "You don't have any Chat Rooms yet." : {
+
+    }
+  },
+  "version" : "1.0"
+}

@@ -34,9 +34,22 @@
 		DFB14AB62CEC434B00B3A43B /* rxlab-toolboxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rxlab-toolboxUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DFB14B4B2CEC6E3300B3A43B /* Exceptions for "rxlab-toolbox" folder in "rxlab-toolbox" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DFB14A9A2CEC434A00B3A43B /* rxlab-toolbox */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DFB14A9D2CEC434A00B3A43B /* rxlab-toolbox */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DFB14B4B2CEC6E3300B3A43B /* Exceptions for "rxlab-toolbox" folder in "rxlab-toolbox" target */,
+			);
 			path = "rxlab-toolbox";
 			sourceTree = "<group>";
 		};
@@ -201,6 +214,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = DFB14A922CEC434A00B3A43B;
 			minimizedProjectReferenceProxies = 1;
@@ -414,6 +428,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "rxlab-toolbox/Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -441,6 +456,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "rxlab-toolbox/Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
