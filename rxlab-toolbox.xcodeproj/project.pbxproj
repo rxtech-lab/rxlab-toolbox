@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DF3742832CEDC67800AE561A /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = DF3742822CEDC67800AE561A /* Common */; };
 		DF3742862CEDC68500AE561A /* TelegramAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = DF3742852CEDC68500AE561A /* TelegramAdapter */; };
+		DFAEA5FF2CEE3353004AB935 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = DFAEA5FE2CEE3353004AB935 /* AnyCodable */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF3742832CEDC67800AE561A /* Common in Frameworks */,
+				DFAEA5FF2CEE3353004AB935 /* AnyCodable in Frameworks */,
 				DF3742862CEDC68500AE561A /* TelegramAdapter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +140,7 @@
 			packageProductDependencies = (
 				DF3742822CEDC67800AE561A /* Common */,
 				DF3742852CEDC68500AE561A /* TelegramAdapter */,
+				DFAEA5FE2CEE3353004AB935 /* AnyCodable */,
 			);
 			productName = "rxlab-toolbox";
 			productReference = DFB14A9B2CEC434A00B3A43B /* rxlab-toolbox.app */;
@@ -225,6 +228,7 @@
 			packageReferences = (
 				DF3742812CEDC67800AE561A /* XCLocalSwiftPackageReference "packages/Common" */,
 				DF3742842CEDC68500AE561A /* XCLocalSwiftPackageReference "packages/TelegramAdapter" */,
+				DFAEA5FD2CEE3353004AB935 /* XCRemoteSwiftPackageReference "anycodable" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DFB14A9C2CEC434A00B3A43B /* Products */;
@@ -594,6 +598,17 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		DFAEA5FD2CEE3353004AB935 /* XCRemoteSwiftPackageReference "anycodable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/flight-school/anycodable.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		DF3742822CEDC67800AE561A /* Common */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -602,6 +617,11 @@
 		DF3742852CEDC68500AE561A /* TelegramAdapter */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TelegramAdapter;
+		};
+		DFAEA5FE2CEE3353004AB935 /* AnyCodable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFAEA5FD2CEE3353004AB935 /* XCRemoteSwiftPackageReference "anycodable" */;
+			productName = AnyCodable;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

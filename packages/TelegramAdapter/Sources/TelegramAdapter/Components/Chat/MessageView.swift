@@ -1,3 +1,4 @@
+import Common
 import MockTelegramKit
 import SwiftUI
 
@@ -5,6 +6,7 @@ struct MessageView: View {
     let message: Message
     private let currentUserId = getCurrentUserId()
     let onButtonPress: ((InlineKeyboardButton) -> Void)?
+    @State var showErrorMessage = false
 
     init(message: Message, onButtonPress: ((InlineKeyboardButton) -> Void)? = nil) {
         self.message = message
@@ -19,13 +21,37 @@ struct MessageView: View {
         return message.updateCount > 0
     }
 
+    @ViewBuilder func errorMessageIcon(direction: Edge) -> some View {
+        if let error = message.error {
+            Image(systemName: "exclamationmark.circle.fill")
+                .foregroundColor(.red)
+                .onTapGesture {
+                    showErrorMessage.toggle()
+                }
+                .popover(isPresented: $showErrorMessage, arrowEdge: direction) {
+                    ZStack {
+                        Color.red.scaleEffect(1.2)
+                        Text(error.localizedDescription)
+                            .lineLimit(8)
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: 400)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .multilineTextAlignment(.leading)
+                            .padding()
+                    }
+                }
+        }
+    }
+
     var body: some View {
         HStack {
             if message.userId == currentUserId {
                 Spacer()
+                errorMessageIcon(direction: .leading)
                 messageContent
             } else {
                 messageContent
+                errorMessageIcon(direction: .trailing)
                 Spacer()
             }
         }
@@ -37,7 +63,8 @@ struct MessageView: View {
             // Message bubble
             messageBubble
                 .background(
-                    message.userId == currentUserId
+                    message.error != nil ? Color.red :
+                        message.userId == currentUserId
                         ? Color.blue.opacity(0.2) : Color.gray.opacity(0.1)
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -49,7 +76,7 @@ struct MessageView: View {
 
             // Inline keyboard buttons (outside bubble)
             if let replyMarkup = message.replyMarkup,
-                let keyboard = replyMarkup.inlineKeyboard
+               let keyboard = replyMarkup.inlineKeyboard
             {
                 if keyboard.count > 0 {
                     VStack {
@@ -66,22 +93,25 @@ struct MessageView: View {
                 }
             }
         }
-        .padding()
+        .padding([.top, .bottom])
+        .padding(message.userId == .BotUserId ? .leading : .trailing)
+        .animation(.spring, value: message)
     }
 
     var messageBubble: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text("User \(message.userId)")
                 .font(.caption)
-                .foregroundColor(.blue)
+                .foregroundColor(message.error != nil ? .white : .blue)
 
             if let text = message.text {
                 HTMLRenderer(html: text)
+                    .foregroundStyle(message.error != nil ? .white : .primary)
             }
 
             Text(MessageDateFormatter.format(timestamp: Int(Date().timeIntervalSince1970)))
                 .font(.caption2)
-                .foregroundColor(.gray)
+                .foregroundColor(message.error != nil ? .white : .gray)
         }
         .padding(8)
     }
@@ -106,5 +136,20 @@ struct MessageView: View {
     private static func getCurrentUserId() -> Int {
         // Replace with actual current user ID logic
         return .UserID
+    }
+}
+
+enum TestError: LocalizedError {
+    case testError
+    var errorDescription: String? {
+        return "This is a very very long error message that should be truncated to fit the screen.This is a very very long error message that should be truncated to fit the screen.This is a very very long error message that should be truncated to fit the screen.This is a very very long error message that should be truncated to fit the screen.This is a very very long error message that should be truncated to fit the screen."
+    }
+}
+
+#Preview {
+    var message = Message(messageId: 1, text: "Hello", userId: 0)
+    message.error = TestError.testError
+
+    return MessageView(message: message) { _ in
     }
 }

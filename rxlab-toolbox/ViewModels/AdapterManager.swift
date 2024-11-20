@@ -9,7 +9,7 @@ import Common
 import SwiftUI
 import TelegramAdapter
 
-enum AvailableAdapters: String, CaseIterable {
+enum AvailableAdapters: String, CaseIterable, Codable {
     case telegram
 }
 

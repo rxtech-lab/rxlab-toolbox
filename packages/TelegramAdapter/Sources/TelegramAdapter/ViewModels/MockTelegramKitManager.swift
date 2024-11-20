@@ -20,7 +20,7 @@ struct Chatroom: Codable, Identifiable, Hashable {
     public init() {
         Task {
             await ChatManager.shared.registerWebhookListeners.receive(on: DispatchQueue.main).sink {
-                _, _ in
+                _ in
                 Task {
                     // Cannot assign value of type '[Int : URL]' to type '[Webhook]'
                     DispatchQueue.main.async {

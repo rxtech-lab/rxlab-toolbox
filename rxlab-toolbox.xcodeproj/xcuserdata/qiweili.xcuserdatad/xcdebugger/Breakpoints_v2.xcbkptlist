@@ -3,4 +3,98 @@
    uuid = "1281465D-1F5C-4EBF-B371-CD6F97B41CE1"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9AC72FEC-E639-4055-B2DC-3F28A7FE972D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "packages/TelegramAdapter/Sources/TelegramAdapter/Components/Home/chatroom/ChatroomDetail.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "9AC72FEC-E639-4055-B2DC-3F28A7FE972D - b0c0797f23d7250d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 (Swift.String) async -&gt; () in TelegramAdapter.ChatroomDetail.body.getter : some"
+                  moduleName = "rxlab-toolbox.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/qiweili/Desktop/rxlab/rxlab-toolbox/packages/TelegramAdapter/Sources/TelegramAdapter/Components/Home/chatroom/ChatroomDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27">
+               </Location>
+               <Location
+                  uuid = "9AC72FEC-E639-4055-B2DC-3F28A7FE972D - 5cf21361a89b31fe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 (Swift.String) async -&gt; () in TelegramAdapter.ChatroomDetail.body.getter : some"
+                  moduleName = "rxlab-toolbox.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/qiweili/Desktop/rxlab/rxlab-toolbox/packages/TelegramAdapter/Sources/TelegramAdapter/Components/Home/chatroom/ChatroomDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27">
+               </Location>
+               <Location
+                  uuid = "9AC72FEC-E639-4055-B2DC-3F28A7FE972D - ea536aafde96d977"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 (Swift.String) async -&gt; () in TelegramAdapter.ChatroomDetail.body.getter : some"
+                  moduleName = "rxlab-toolbox.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/qiweili/Desktop/rxlab/rxlab-toolbox/packages/TelegramAdapter/Sources/TelegramAdapter/Components/Home/chatroom/ChatroomDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "401161E1-C4FD-452B-8534-36D507B06A6C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/rxlab-toolbox-gzipvwkghosblbdqgzoflianifsy/SourcePackages/checkouts/mock-telegram-server/Sources/MockTelegramKit/Services/ChatService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "sendMessage(chatroomId:messageRequest:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D5D21F46-CD17-43A4-8219-08428A3074CE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/rxlab-toolbox-gzipvwkghosblbdqgzoflianifsy/SourcePackages/checkouts/mock-telegram-server/Sources/MockTelegramKit/Services/ChatService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
+            landmarkName = "sendMessage(chatroomId:messageRequest:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

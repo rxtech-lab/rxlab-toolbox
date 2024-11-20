@@ -17,7 +17,7 @@ struct ContentView: View {
             // Sidebar
             sidebarContent
                 .contextMenu {
-                    AdapterContextMenu()
+                    AdapterContextMenu(document: $document)
                 }
         } detail: {
             contentView
@@ -57,6 +57,10 @@ struct ContentView: View {
                         .frame(height: 600)
                 }
             }
+
+            for adapter in document.adapters {
+                adapterManager.addAdapter(adapter: adapter)
+            }
         }
         .navigationTitle(AppStrings.appName.rawValue)
         .navigationSplitViewStyle(.prominentDetail)
@@ -70,11 +74,9 @@ struct ContentView: View {
                 }
             }
 
-            Section(AppStrings.storageSection.rawValue) {
-            }
+            Section(AppStrings.storageSection.rawValue) {}
 
-            Section(AppStrings.apiSection.rawValue) {
-            }
+            Section(AppStrings.apiSection.rawValue) {}
         }
         .frame(minWidth: 300)
     }

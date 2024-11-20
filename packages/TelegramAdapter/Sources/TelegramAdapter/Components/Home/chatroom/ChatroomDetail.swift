@@ -25,16 +25,14 @@ struct ChatroomDetail: View {
                     return
                 }
                 _ = await ChatManager.shared.sendMessage(
-                    chatroomId: chatroom.id, messageRequest: .init(type: .text, content: message))
+                    chatroomId: chatroom.id, messageRequest: .init(type: .text, content: message)
+                )
             }
         )
         .frame(minWidth: 500)
         .task {
             self.messages = await ChatManager.shared.getMessagesByChatroom(chatroomId: chatroom.id)
-            for await (chatroomId, _) in await ChatManager.shared.messageListeners.values {
-                if chatroomId != chatroom.id {
-                    continue
-                }
+            for await _ in await ChatManager.shared.messageListeners.values {
                 messages = await ChatManager.shared.getMessagesByChatroom(chatroomId: chatroom.id)
             }
         }

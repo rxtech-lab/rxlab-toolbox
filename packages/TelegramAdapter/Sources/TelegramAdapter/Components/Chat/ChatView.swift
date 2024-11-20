@@ -22,7 +22,8 @@ struct ChatView: View {
                             MessageView(message: message) { button in
                                 Task {
                                     await ChatManager.shared.clickOnMessageButton(
-                                        chatroomId: chatroom.id, message: message, button: button)
+                                        chatroomId: chatroom.id, message: message, button: button
+                                    )
                                 }
                             }
                             .id(message.messageId)
@@ -56,7 +57,7 @@ struct ChatView: View {
     }
 }
 
-struct MessageDateFormatter {
+enum MessageDateFormatter {
     static func format(timestamp: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
         let formatter = DateFormatter()

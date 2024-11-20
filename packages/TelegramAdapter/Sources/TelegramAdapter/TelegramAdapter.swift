@@ -1,4 +1,5 @@
 import Common
+
 //
 //  telegramAdapter.swift
 //  rxlab-toolbox
@@ -7,14 +8,6 @@ import Common
 //
 import MockTelegramKit
 import SwiftUI
-
-public struct TelegramAdapterData: AdapterData {
-    var chatrooms: [Chatroom] = []
-    var messages: [Int: [Message]] = [:]
-    var webhooks: [Webhook] = []
-
-    public init() {}
-}
 
 public struct TelegramAdapter: Adapter {
     public init() {}
@@ -37,7 +30,7 @@ public struct TelegramAdapter: Adapter {
         Text("Detail view")
     }
 
-    public var sidebarItem: SidebarItem = SidebarItem(
+    public var sidebarItem: SidebarItem = .init(
         name: "Telegram", icon: "paperplane.fill", value: "telegram"
     ) {
         AnyView(

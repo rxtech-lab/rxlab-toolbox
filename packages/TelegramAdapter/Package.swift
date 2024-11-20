@@ -6,16 +6,17 @@ import PackageDescription
 let package = Package(
     name: "TelegramAdapter",
     platforms: [
-        .macOS(.v15)
+        .macOS(.v15),
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "TelegramAdapter",
-            targets: ["TelegramAdapter"])
+            targets: ["TelegramAdapter"]
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/rxtech-lab/mock-telegram-server", from: "1.3.0"),
+        .package(url: "https://github.com/rxtech-lab/mock-telegram-server", from: "1.3.2"),
         .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.7.6"),
         .package(path: "../Common"),
     ],
