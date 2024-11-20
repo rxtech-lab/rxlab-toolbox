@@ -4,6 +4,7 @@
 //
 //  Created by Qiwei Li on 11/14/24.
 //
+import Common
 
 enum SideBarItem: Hashable {
     case Adapter(any Adapter & Hashable)

@@ -1,13 +1,20 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "#%lld" : {
+    "Adapter" : {
 
     },
     "Adapters" : {
 
     },
+    "Add" : {
+
+    },
+    "Add adapter" : {
+
+    },
     "Add new chatroom" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -18,6 +25,7 @@
       }
     },
     "Add new webhook" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -31,6 +39,7 @@
 
     },
     "Basic Information" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -41,6 +50,7 @@
       }
     },
     "Cancel" : {
+      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -50,46 +60,10 @@
         }
       }
     },
-    "Chatroom ID" : {
-
-    },
-    "Chatrooms" : {
-
-    },
     "Continue" : {
 
     },
-    "Create a Chat Room" : {
-
-    },
-    "Detail view" : {
-
-    },
-    "Edit Webhook" : {
-
-    },
-    "Edit webhook details" : {
-
-    },
-    "Edited %lld time(s)" : {
-
-    },
-    "Emtpy Content" : {
-
-    },
-    "Host" : {
-
-    },
-    "Message" : {
-
-    },
-    "Mock Telegram Server Configuration" : {
-
-    },
     "OK" : {
-
-    },
-    "Port" : {
 
     },
     "RxLab Toolbox" : {
@@ -102,46 +76,16 @@
         }
       }
     },
-    "Save" : {
-
-    },
-    "Start" : {
-
-    },
-    "Start the server" : {
-
-    },
-    "Status Information" : {
-
-    },
-    "Stop" : {
-
-    },
-    "Stop the server" : {
-
-    },
     "Storage" : {
 
     },
     "Telegram Adapter" : {
 
     },
-    "User %lld" : {
-
-    },
     "Version: %@" : {
 
     },
-    "Webhook Configuration" : {
-
-    },
-    "Webhook URL" : {
-
-    },
     "Welcome to" : {
-
-    },
-    "You don't have any Chat Rooms yet." : {
 
     }
   },

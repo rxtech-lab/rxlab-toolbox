@@ -4,6 +4,7 @@
 //
 //  Created by Qiwei Li on 11/19/24.
 //
+import Common
 import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers

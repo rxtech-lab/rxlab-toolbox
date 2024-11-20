@@ -1,0 +1,2 @@
+public protocol AdapterData: Codable {
+}

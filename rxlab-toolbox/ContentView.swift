@@ -1,3 +1,4 @@
+import Common
 import MockTelegramKit
 import SwiftUI
 
@@ -15,6 +16,9 @@ struct ContentView: View {
         NavigationSplitView {
             // Sidebar
             sidebarContent
+                .contextMenu {
+                    AdapterContextMenu()
+                }
         } detail: {
             contentView
         }

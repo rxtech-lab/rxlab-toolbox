@@ -1,4 +1,6 @@
+import Common
 import SwiftUI
+import TelegramAdapter
 
 struct AdapterItemView: View {
     let adapter: any Adapter

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DFB14B022CEC43E000B3A43B /* MockTelegramKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFB14B012CEC43E000B3A43B /* MockTelegramKit */; };
-		DFB14B052CEC43F200B3A43B /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = DFB14B042CEC43F200B3A43B /* SwiftSoup */; };
+		DF3742832CEDC67800AE561A /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = DF3742822CEDC67800AE561A /* Common */; };
+		DF3742862CEDC68500AE561A /* TelegramAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = DF3742852CEDC68500AE561A /* TelegramAdapter */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DF176F662CEDAFDA00AB06BF /* TelegramAdapter */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TelegramAdapter; path = packages/TelegramAdapter; sourceTree = "<group>"; };
+		DF635DE62CEDB8F9003B6463 /* Common */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Common; path = packages/Common; sourceTree = "<group>"; };
 		DFB14A9B2CEC434A00B3A43B /* rxlab-toolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "rxlab-toolbox.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB14AAC2CEC434B00B3A43B /* rxlab-toolboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rxlab-toolboxTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB14AB62CEC434B00B3A43B /* rxlab-toolboxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rxlab-toolboxUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,8 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFB14B022CEC43E000B3A43B /* MockTelegramKit in Frameworks */,
-				DFB14B052CEC43F200B3A43B /* SwiftSoup in Frameworks */,
+				DF3742832CEDC67800AE561A /* Common in Frameworks */,
+				DF3742862CEDC68500AE561A /* TelegramAdapter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +97,8 @@
 		DFB14A922CEC434A00B3A43B = {
 			isa = PBXGroup;
 			children = (
+				DF635DE62CEDB8F9003B6463 /* Common */,
+				DF176F662CEDAFDA00AB06BF /* TelegramAdapter */,
 				DFB14A9D2CEC434A00B3A43B /* rxlab-toolbox */,
 				DFB14AAF2CEC434B00B3A43B /* rxlab-toolboxTests */,
 				DFB14AB92CEC434B00B3A43B /* rxlab-toolboxUITests */,
@@ -132,8 +136,8 @@
 			);
 			name = "rxlab-toolbox";
 			packageProductDependencies = (
-				DFB14B012CEC43E000B3A43B /* MockTelegramKit */,
-				DFB14B042CEC43F200B3A43B /* SwiftSoup */,
+				DF3742822CEDC67800AE561A /* Common */,
+				DF3742852CEDC68500AE561A /* TelegramAdapter */,
 			);
 			productName = "rxlab-toolbox";
 			productReference = DFB14A9B2CEC434A00B3A43B /* rxlab-toolbox.app */;
@@ -219,8 +223,8 @@
 			mainGroup = DFB14A922CEC434A00B3A43B;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				DFB14B002CEC43E000B3A43B /* XCRemoteSwiftPackageReference "mock-telegram-server" */,
-				DFB14B032CEC43F200B3A43B /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				DF3742812CEDC67800AE561A /* XCLocalSwiftPackageReference "packages/Common" */,
+				DF3742842CEDC68500AE561A /* XCLocalSwiftPackageReference "packages/TelegramAdapter" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DFB14A9C2CEC434A00B3A43B /* Products */;
@@ -579,35 +583,25 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		DFB14B002CEC43E000B3A43B /* XCRemoteSwiftPackageReference "mock-telegram-server" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rxtech-lab/mock-telegram-server";
-			requirement = {
-				kind = exactVersion;
-				version = 1.3.0;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		DF3742812CEDC67800AE561A /* XCLocalSwiftPackageReference "packages/Common" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = packages/Common;
 		};
-		DFB14B032CEC43F200B3A43B /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.6;
-			};
+		DF3742842CEDC68500AE561A /* XCLocalSwiftPackageReference "packages/TelegramAdapter" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = packages/TelegramAdapter;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DFB14B012CEC43E000B3A43B /* MockTelegramKit */ = {
+		DF3742822CEDC67800AE561A /* Common */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DFB14B002CEC43E000B3A43B /* XCRemoteSwiftPackageReference "mock-telegram-server" */;
-			productName = MockTelegramKit;
+			productName = Common;
 		};
-		DFB14B042CEC43F200B3A43B /* SwiftSoup */ = {
+		DF3742852CEDC68500AE561A /* TelegramAdapter */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DFB14B032CEC43F200B3A43B /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
+			productName = TelegramAdapter;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
