@@ -3,6 +3,7 @@ import SwiftUI
 
 struct ChatroomContextMenu: View {
     @Environment(SheetManager.self) var sheetManager
+    let chatroom: Chatroom? = nil
 
     var body: some View {
         VStack {

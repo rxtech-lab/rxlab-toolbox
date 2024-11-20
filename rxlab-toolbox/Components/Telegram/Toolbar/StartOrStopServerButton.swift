@@ -10,10 +10,12 @@ import SwiftUI
 /// Shows a button that can start or stop the server
 struct StartOrStopServerButton: View {
     @Environment(ServerManager.self) var serverManager
-    @State private var showStartServerPopover = false
-    @State private var showStopServerPopover = false
+    @Environment(SheetManager.self) var sheetManager
+    @State private var show = false
     @AppStorage("webhookHost") private var host = "0.0.0.0"
     @AppStorage("webhookPort") private var port = 8080
+
+    let variant: ActionVariant
 
     func buildForm() -> some View {
         Form {
@@ -30,8 +32,12 @@ struct StartOrStopServerButton: View {
                 if !serverManager.isServerRunning {
                     Button {
                         Task {
-                            await serverManager.startServer(host: host, port: port)
-                            showStartServerPopover = false
+                            serverManager.startServer(host: host, port: port)
+                            show = false
+                            if variant == .sidebar {
+                                print("hide sheet")
+                                sheetManager.hideSheet()
+                            }
                         }
                     } label: {
                         if serverManager.isStartLoading {
@@ -44,7 +50,10 @@ struct StartOrStopServerButton: View {
                     Button {
                         Task {
                             await serverManager.stopServer()
-                            showStopServerPopover = false
+                            show = false
+                            if variant == .sidebar {
+                                sheetManager.hideSheet()
+                            }
                         }
                     } label: {
                         if serverManager.isStopLoading {
@@ -58,37 +67,55 @@ struct StartOrStopServerButton: View {
         }
     }
 
-    var body: some View {
+    @ViewBuilder private func buildButton() -> some View {
         Group {
             if serverManager.isServerRunning {
                 Button {
-                    showStopServerPopover = true
+                    show = true
+                    if variant == .sidebar {
+                        sheetManager.showSheet {
+                            buildForm()
+                                .padding()
+                                .frame(width: 300, height: 150)
+                        }
+                    }
                 } label: {
-                    Label("Stop Server", systemImage: "stop.fill")
+                    Image(systemName: "stop.fill")
                 }
                 .help("Stop the server")
-                .popover(isPresented: $showStopServerPopover) {
-                    buildForm()
-                        .padding()
-                        .frame(width: 300, height: 150)
-                }
             } else {
                 Button {
-                    showStartServerPopover = true
+                    show = true
+                    if variant == .sidebar {
+                        sheetManager.showSheet {
+                            buildForm()
+                                .padding()
+                                .frame(width: 300, height: 150)
+                        }
+                    }
                 } label: {
-                    Label("Start Server", systemImage: "play.fill")
+                    Image(systemName: "play.fill")
                 }
                 .help("Start the server")
-                .popover(isPresented: $showStartServerPopover) {
+            }
+        }
+    }
+
+    var body: some View {
+        if variant == .toolbar {
+            buildButton()
+                .popover(isPresented: $show) {
                     buildForm()
                         .padding()
                         .frame(width: 300, height: 150)
                 }
-            }
+        } else {
+            buildButton()
+                .buttonStyle(.borderless)
         }
     }
 }
 
 #Preview {
-    StartOrStopServerButton()
+    StartOrStopServerButton(variant: .toolbar)
 }

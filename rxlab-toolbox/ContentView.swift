@@ -20,6 +20,7 @@ struct ContentView: View {
             contentView
         }
             detail: {
+            EmptyStateView(iconName: "tray.full", title: "No detail to display", message: "Select an item to view details")
         }
         .frame(idealHeight: 800)
         .confirmationDialog(
@@ -60,20 +61,13 @@ struct ContentView: View {
         }
         .navigationTitle(AppStrings.appName.rawValue)
         .navigationSplitViewStyle(.prominentDetail)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                StartOrStopServerButton()
-            }
-        }
     }
 
     private var sidebarContent: some View {
         List(selection: $selectedSidebarItem) {
             Section(AppStrings.adapterSection.rawValue) {
-                ForEach(adapterManager.adapters, id: \.sidebarItem.id) { adapter in
-                    NavigationLink(value: NavigationPath.SideBar(.Adapter(adapter))) {
-                        Label(AppStrings.Telegram.adapterName.rawValue, systemImage: "bolt.fill")
-                    }
+                ForEach(adapterManager.adapters, id: \.id) { adapter in
+                    AdapterItemView(adapter: adapter)
                 }
             }
 
@@ -83,9 +77,7 @@ struct ContentView: View {
             Section(AppStrings.apiSection.rawValue) {
             }
         }
-        .frame(minWidth: 200)
-        .contextMenu {
-        }
+        .frame(minWidth: 300)
     }
 
     @ViewBuilder

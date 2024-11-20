@@ -56,6 +56,9 @@
     "Chatroom ID" : {
 
     },
+    "Chatrooms" : {
+
+    },
     "Continue" : {
 
     },
@@ -111,9 +114,6 @@
     "Start" : {
 
     },
-    "Start Server" : {
-
-    },
     "Start the server" : {
 
     },
@@ -121,9 +121,6 @@
 
     },
     "Stop" : {
-
-    },
-    "Stop Server" : {
 
     },
     "Stop the server" : {

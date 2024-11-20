@@ -32,5 +32,10 @@ struct TelegramAdapter: Adapter {
         Text("Detail view")
     }
 
-    var sidebarItem: SidebarItem = SidebarItem(name: "Telegram", icon: "paperplane.fill", value: "telegram")
+    var sidebarItem: SidebarItem = SidebarItem(name: "Telegram", icon: "paperplane.fill", value: "telegram") {
+        AnyView(Group {
+            StartOrStopServerButton(variant: .sidebar)
+
+        })
+    }
 }

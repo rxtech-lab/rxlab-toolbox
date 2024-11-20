@@ -99,35 +99,6 @@ struct FeatureRow: View {
     }
 }
 
-struct GradientBar: View {
-    var body: some View {
-        LinearGradient(
-            gradient: Gradient(colors: [
-                Color.blue,
-                Color.blue.opacity(0.8),
-                Color.blue.opacity(0.6),
-                Color.blue.opacity(0.4),
-                Color.blue.opacity(0.2),
-            ]),
-            startPoint: .leading,
-            endPoint: .trailing
-        )
-        .cornerRadius(8)
-        .overlay(
-            HStack {
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 6, height: 6)
-                Spacer()
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 6, height: 6)
-            }
-            .padding(.horizontal, 4)
-        )
-    }
-}
-
 #Preview {
     SplashScreen(document: .constant(.init()))
         .frame(height: 800)
