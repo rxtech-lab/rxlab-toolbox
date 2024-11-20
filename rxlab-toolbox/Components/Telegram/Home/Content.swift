@@ -10,7 +10,7 @@ import SwiftUI
 struct TelegramContentView: View {
     @Environment(SheetManager.self) var sheetManager
 
-    var body: some View {
+    @ViewBuilder func buildList() -> some View {
         List {
             Section {
                 ChatroomList { _ in
@@ -35,10 +35,20 @@ struct TelegramContentView: View {
         .contextMenu {
             ChatroomContextMenu()
         }
+    }
+
+    var body: some View {
+        HSplitView {
+            buildList()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            EmptyView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 StartOrStopServerButton(variant: .toolbar)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

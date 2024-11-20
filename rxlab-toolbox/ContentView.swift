@@ -15,14 +15,9 @@ struct ContentView: View {
         NavigationSplitView {
             // Sidebar
             sidebarContent
-        }
-            content: {
+        } detail: {
             contentView
         }
-            detail: {
-            EmptyStateView(iconName: "tray.full", title: "No detail to display", message: "Select an item to view details")
-        }
-        .frame(idealHeight: 800)
         .confirmationDialog(
             confirmManager.confirmTitle,
             isPresented: confirmManager.isConfirmPresentedBinding,
@@ -86,13 +81,8 @@ struct ContentView: View {
         case let .SideBar(.Adapter(adapter)):
             AnyView(adapter.contentView)
         default:
-            Text("Select an adapter")
+            EmptyStateView(iconName: "tray.full", title: "No detail to display", message: "Select an item to view details")
         }
-    }
-
-    @ViewBuilder
-    private var detailView: some View {
-        Text("")
     }
 }
 

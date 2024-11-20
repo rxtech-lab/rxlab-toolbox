@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-
-    },
     "#%lld" : {
 
     },
@@ -106,9 +103,6 @@
       }
     },
     "Save" : {
-
-    },
-    "Select an adapter" : {
 
     },
     "Start" : {
