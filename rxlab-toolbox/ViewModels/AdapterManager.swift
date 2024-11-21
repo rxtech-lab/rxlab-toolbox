@@ -20,7 +20,10 @@ enum AvailableAdapters: String, CaseIterable, Codable {
     func addAdapter(adapter: AvailableAdapters) {
         switch adapter {
         case .telegram:
-            adapters.append(TelegramAdapter())
+            let adapter = TelegramAdapter()
+            if !adapters.contains(where: { $0.id == adapter.id }) {
+                adapters.append(adapter)
+            }
         }
     }
 }

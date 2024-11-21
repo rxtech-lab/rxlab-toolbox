@@ -1,5 +1,5 @@
 {
-  "originHash" : "1b3b07038d2e0c029356d4e9d35b7de04bca4f89c2906a4f8785d3e9f4151de2",
+  "originHash" : "ce200a93d06b77f4aee3422b185d3c0a7217101c7d2443eac045d665e7abeb2b",
   "pins" : [
     {
       "identity" : "anycodable",
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rxtech-lab/mock-telegram-server",
       "state" : {
-        "revision" : "35d4d3a36a5b0dc3f724bb24072a2aa09139d208",
-        "version" : "1.3.2"
+        "revision" : "e2e8276aeb5e146bec8b8c8d11d257f59b6fee60",
+        "version" : "1.3.4"
       }
     },
     {

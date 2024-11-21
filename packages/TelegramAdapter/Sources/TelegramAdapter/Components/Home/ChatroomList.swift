@@ -15,6 +15,9 @@ struct ChatroomList: View {
     var body: some View {
         ForEach(mockTelegramKitManager.chatroom.sorted { c1, c2 in c1.id < c2.id }) { chatroom in
             NavigationLink("#\(chatroom.id)", value: chatroom)
+                .contextMenu {
+                    ChatroomContextMenu(chatroom: chatroom)
+                }
         }
     }
 }

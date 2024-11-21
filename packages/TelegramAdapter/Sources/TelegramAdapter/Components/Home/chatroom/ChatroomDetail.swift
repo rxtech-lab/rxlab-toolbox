@@ -13,15 +13,22 @@ import SwiftUI
 struct ChatroomDetail: View {
     let chatroom: Chatroom
     @State var messages: [Message] = []
-    @Environment(AlertManager.self) var alertManager
+    @Environment(ConfirmManager.self) var confirmManager
     @Environment(TelegramServerManager.self) var mockServerManager
+    @AppStorage("webhookHost") private var host = "0.0.0.0"
+    @AppStorage("webhookPort") private var port = 8080
 
     var body: some View {
         ChatView(
             chatroom: chatroom, messages: messages,
             onSendMessage: { message in
                 if !mockServerManager.isServerRunning {
-                    alertManager.showAlert(message: "Server is not running")
+                    confirmManager.showConfirmation(title: "Server is not running", message: "Do you want to start the server?") {
+                        mockServerManager.startServer(host: host, port: port)
+                        _ = await ChatManager.shared.sendMessage(
+                            chatroomId: chatroom.id, messageRequest: .init(type: .text, content: message)
+                        )
+                    }
                     return
                 }
                 _ = await ChatManager.shared.sendMessage(

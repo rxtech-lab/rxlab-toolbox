@@ -29,7 +29,7 @@ enum DecodingError: LocalizedError {
 struct RxToolboxDocument: FileDocument {
     static var readableContentTypes: [UTType] { [.toolboxDocument] }
 
-    var adapterData: [String: AdapterData] = [:]
+    var adapterData: [AvailableAdapters: any AdapterData] = [:]
     var hasInitialized: Bool = false
     var adapters: [AvailableAdapters] = []
 
@@ -54,11 +54,12 @@ extension RxToolboxDocument: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         hasInitialized = try container.decode(Bool.self, forKey: .hasInitialized)
         adapters = try container.decode([AvailableAdapters].self, forKey: .adapters)
-        let rawAdapterData = try container.decode([String: AnyCodable].self, forKey: .adapterData)
-        adapterData = try rawAdapterData.mapValues { anyValue in
-            let jsonData = try JSONEncoder().encode(anyValue)
-            if let telegramData = try? JSONDecoder().decode(TelegramAdapterData.self, from: jsonData) {
-                return telegramData
+        let rawAdapterData = try container.decode([AvailableAdapters: String].self, forKey: .adapterData)
+        adapterData = try rawAdapterData.mapValues { data in
+            if let data = Data(base64Encoded: data) {
+                if let telegramData = try? JSONDecoder().decode(TelegramAdapterData.self, from: data) {
+                    return telegramData
+                }
             }
             throw DecodingError.decodingError
         }
@@ -68,10 +69,8 @@ extension RxToolboxDocument: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(hasInitialized, forKey: .hasInitialized)
         try container.encode(adapters, forKey: .adapters)
-        let rawData = try adapterData.mapValues { adapter -> AnyCodable in
-            let data = try JSONEncoder().encode(adapter)
-            let json = try JSONSerialization.jsonObject(with: data)
-            return AnyCodable(json)
+        let rawData = try adapterData.mapValues { adapter -> Data in
+            try JSONEncoder().encode(adapter)
         }
         try container.encode(rawData, forKey: .adapterData)
     }

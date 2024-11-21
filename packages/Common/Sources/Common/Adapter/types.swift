@@ -1,2 +1,1 @@
-public protocol AdapterData: Codable {
-}
+public protocol AdapterData: Codable, Equatable, Sendable {}

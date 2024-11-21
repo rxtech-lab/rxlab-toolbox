@@ -32,11 +32,12 @@ struct MessageView: View {
                     ZStack {
                         Color.red.scaleEffect(1.2)
                         Text(error.localizedDescription)
+                            .multilineTextAlignment(.leading)
+                            .popoverMultilineHeightFix()
                             .lineLimit(8)
                             .foregroundStyle(.white)
                             .frame(maxWidth: 400)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: false)
                             .padding()
                     }
                 }
@@ -139,16 +140,9 @@ struct MessageView: View {
     }
 }
 
-enum TestError: LocalizedError {
-    case testError
-    var errorDescription: String? {
-        return "This is a very very long error message that should be truncated to fit the screen.This is a very very long error message that should be truncated to fit the screen.This is a very very long error message that should be truncated to fit the screen.This is a very very long error message that should be truncated to fit the screen.This is a very very long error message that should be truncated to fit the screen."
-    }
-}
-
 #Preview {
     var message = Message(messageId: 1, text: "Hello", userId: 0)
-    message.error = TestError.testError
+    message.error = WebhookError.webhookCallFailed("Some very very long error message.Some very very long error message.Some very very long error message.Some very very long error message.Some very very long error message.Some very very long error message.")
 
     return MessageView(message: message) { _ in
     }

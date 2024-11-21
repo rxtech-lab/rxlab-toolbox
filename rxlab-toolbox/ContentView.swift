@@ -1,14 +1,15 @@
 import Common
 import MockTelegramKit
 import SwiftUI
+import TelegramAdapter
 
 struct ContentView: View {
     @Environment(SheetManager.self) var sheetManager
     @Environment(AlertManager.self) var alertManager
     @Environment(ConfirmManager.self) var confirmManager
     @Environment(AdapterManager.self) var adapterManager
+    @Environment(MockTelegramKitManager.self) var mockTelegramKitManager
     @Binding var document: RxToolboxDocument
-
     @State private var selectedSidebarItem: NavigationPath?
     @State private var selectedWebhookDetail: Webhook?
 
@@ -50,6 +51,12 @@ struct ContentView: View {
         .sheet(isPresented: sheetManager.isSheetPresentedBinding) {
             sheetManager.sheetContent()
         }
+        .task {
+            await mockTelegramKitManager.initialize {
+                try? await save()
+            }
+            try? await load()
+        }
         .onAppear {
             if !document.hasInitialized {
                 sheetManager.showSheet {
@@ -88,6 +95,31 @@ struct ContentView: View {
             AnyView(adapter.contentView)
         default:
             EmptyStateView(iconName: "tray.full", title: "No detail to display", message: "Select an item to view details")
+        }
+    }
+}
+
+extension ContentView {
+    func save() async throws {
+        for adapter in document.adapters {
+            switch adapter {
+            case .telegram:
+                let data = await mockTelegramKitManager.save()
+                document.adapterData[adapter] = data
+            }
+        }
+    }
+
+    @Sendable
+    func load() async throws {
+        for adapter in document.adapters {
+            switch adapter {
+            case .telegram:
+                let data = document.adapterData[adapter]
+                if let data = data as? TelegramAdapterData {
+                    await mockTelegramKitManager.load(data: data)
+                }
+            }
         }
     }
 }
