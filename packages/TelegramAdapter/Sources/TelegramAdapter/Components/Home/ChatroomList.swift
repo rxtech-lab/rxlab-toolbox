@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatroomList: View {
     @Environment(MockTelegramKitManager.self) var mockTelegramKitManager
+    @Binding var selectedChatroom: Chatroom?
 
     let onDelete: (Chatroom) async -> Void
 
@@ -16,7 +17,7 @@ struct ChatroomList: View {
         ForEach(mockTelegramKitManager.chatroom.sorted { c1, c2 in c1.id < c2.id }) { chatroom in
             NavigationLink("#\(chatroom.id)", value: chatroom)
                 .contextMenu {
-                    ChatroomContextMenu(chatroom: chatroom)
+                    ChatroomContextMenu(chatroom: chatroom, selectedChatroom: $selectedChatroom)
                 }
         }
     }

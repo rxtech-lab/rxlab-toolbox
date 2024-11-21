@@ -13,6 +13,8 @@ struct ContentView: View {
     @State private var selectedSidebarItem: NavigationPath?
     @State private var selectedWebhookDetail: Webhook?
 
+    @State private var isLoaded = false
+
     var body: some View {
         NavigationSplitView {
             // Sidebar
@@ -55,7 +57,7 @@ struct ContentView: View {
             await mockTelegramKitManager.initialize {
                 try? await save()
             }
-            try? await load()
+            await load()
         }
         .onAppear {
             if !document.hasInitialized {
@@ -101,6 +103,9 @@ struct ContentView: View {
 
 extension ContentView {
     func save() async throws {
+        if !isLoaded {
+            return
+        }
         for adapter in document.adapters {
             switch adapter {
             case .telegram:
@@ -111,7 +116,8 @@ extension ContentView {
     }
 
     @Sendable
-    func load() async throws {
+    func load() async {
+        isLoaded = false
         for adapter in document.adapters {
             switch adapter {
             case .telegram:
@@ -121,6 +127,7 @@ extension ContentView {
                 }
             }
         }
+        isLoaded = true
     }
 }
 

@@ -6,9 +6,16 @@ struct ChatroomContextMenu: View {
     @Environment(SheetManager.self) var sheetManager
     @Environment(ConfirmManager.self) var confirmManager
     let chatroom: Chatroom?
+    @Binding var selectedChatroom: Chatroom?
 
-    init(chatroom: Chatroom? = nil) {
+    init(chatroom: Chatroom? = nil, selectedChatroom: Binding<Chatroom?>) {
         self.chatroom = chatroom
+        self._selectedChatroom = selectedChatroom
+    }
+
+    init() {
+        self.chatroom = nil
+        self._selectedChatroom = .constant(nil)
     }
 
     var body: some View {
@@ -29,6 +36,7 @@ struct ChatroomContextMenu: View {
                 Button {
                     confirmManager.showConfirmation(message: "Are you sure you want to delete this chatroom?") {
                         await ChatManager.shared.deleteChatroom(chatroomId: chatroom.id)
+                        selectedChatroom = nil
                     }
                 } label: {
                     Text("Delete chatroom")

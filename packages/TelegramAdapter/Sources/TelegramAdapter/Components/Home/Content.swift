@@ -16,7 +16,7 @@ struct TelegramContentView: View {
     @ViewBuilder func buildList() -> some View {
         List(selection: $selectedChatroom) {
             Section {
-                ChatroomList { _ in
+                ChatroomList(selectedChatroom: $selectedChatroom) { _ in
                 }
             } header: {
                 HStack {

@@ -31,12 +31,12 @@ struct ChatView: View {
                     }
                     .padding(.horizontal, 8)
                     .padding(.top, 8)
+
+                    Color.clear.frame(height: 20).id("bottomSpacer")
                 }
                 .onChange(of: messages) {
-                    if let lastId = messages.last?.messageId {
-                        withAnimation {
-                            proxy.scrollTo(lastId, anchor: .bottom)
-                        }
+                    withAnimation {
+                        proxy.scrollTo("bottomSpacer", anchor: .bottom)
                     }
                 }
             }
