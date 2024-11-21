@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9AC72FEC-E639-4055-B2DC-3F28A7FE972D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "packages/TelegramAdapter/Sources/TelegramAdapter/Components/Home/chatroom/ChatroomDetail.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "401161E1-C4FD-452B-8534-36D507B06A6C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -145,6 +129,22 @@
             startingLineNumber = "61"
             endingLineNumber = "61"
             landmarkName = "init(from:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B4F3F0D2-217F-47D1-B73F-1DC5D620E076"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "packages/TelegramAdapter/Sources/TelegramAdapter/Components/Home/chatroom/ChatroomDetail.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "getMessages(chatroom:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

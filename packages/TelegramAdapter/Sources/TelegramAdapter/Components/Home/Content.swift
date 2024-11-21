@@ -46,6 +46,7 @@ struct TelegramContentView: View {
                 .frame(width: 250)
             if let selectedChatroom = selectedChatroom {
                 ChatroomDetail(chatroom: selectedChatroom)
+
             } else {
                 Text("Detail view")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
