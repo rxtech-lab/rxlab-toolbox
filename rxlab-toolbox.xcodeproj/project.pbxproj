@@ -32,6 +32,7 @@
 /* Begin PBXFileReference section */
 		DF176F662CEDAFDA00AB06BF /* TelegramAdapter */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TelegramAdapter; path = packages/TelegramAdapter; sourceTree = "<group>"; };
 		DF635DE62CEDB8F9003B6463 /* Common */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Common; path = packages/Common; sourceTree = "<group>"; };
+		DFAEA66A2CF1D19D004AB935 /* TestKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TestKit; path = packages/TestKit; sourceTree = "<group>"; };
 		DFB14A9B2CEC434A00B3A43B /* rxlab-toolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "rxlab-toolbox.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB14AAC2CEC434B00B3A43B /* rxlab-toolboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rxlab-toolboxTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB14AB62CEC434B00B3A43B /* rxlab-toolboxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rxlab-toolboxUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +100,7 @@
 		DFB14A922CEC434A00B3A43B = {
 			isa = PBXGroup;
 			children = (
+				DFAEA66A2CF1D19D004AB935 /* TestKit */,
 				DF635DE62CEDB8F9003B6463 /* Common */,
 				DF176F662CEDAFDA00AB06BF /* TelegramAdapter */,
 				DFB14A9D2CEC434A00B3A43B /* rxlab-toolbox */,

@@ -18,6 +18,11 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             // Sidebar
+            Text("Some text")
+                .onTapGesture {
+                    print("Tap on sidebar")
+                }
+
             sidebarContent
                 .contextMenu {
                     AdapterContextMenu(document: $document)
