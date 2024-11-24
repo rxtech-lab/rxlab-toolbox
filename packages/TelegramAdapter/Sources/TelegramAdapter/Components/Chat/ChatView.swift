@@ -19,7 +19,7 @@ struct ChatView: View {
                 ScrollView {
                     LazyVStack(spacing: 8) {
                         ForEach(messages, id: \.messageId) { message in
-                            MessageView(message: message) { button in
+                            MessageView(message: message, index: messages.firstIndex(of: message) ?? 0) { button in
                                 Task {
                                     await ChatManager.shared.clickOnMessageButton(
                                         chatroomId: chatroom.id, message: message, button: button

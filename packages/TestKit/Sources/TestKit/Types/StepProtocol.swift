@@ -11,4 +11,5 @@ public protocol StepProtocol: Codable, Identifiable, Hashable {
     var children: [TestStep] { get }
 
     func addStep(_ step: TestStep) -> Self
+    func updateStep(_ step: TestStep, at id: UUID) -> Self
 }

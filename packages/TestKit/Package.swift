@@ -15,6 +15,9 @@ let package = Package(
             targets: ["TestKit"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/nalexn/ViewInspector.git", from: "0.10.0"),
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
@@ -22,7 +25,9 @@ let package = Package(
             name: "TestKit"),
         .testTarget(
             name: "TestKitTests",
-            dependencies: ["TestKit"]
+            dependencies: ["TestKit",
+                           .product(name: "ViewInspector", package: "viewinspector")],
+            swiftSettings: [.swiftLanguageMode(.v5)]
         ),
     ]
 )

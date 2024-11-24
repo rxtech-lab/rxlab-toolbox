@@ -22,6 +22,7 @@
  */
 public enum MessageExpectationOperator: Codable, Hashable {
     case equals(Int)
+    case notEquals(Int)
     case greaterThan(Int)
     case lessThan(Int)
 }
@@ -43,6 +44,7 @@ public enum MessageExpectationOperator: Codable, Hashable {
  */
 public enum TextExpectationOperator: Codable, Hashable {
     case equals(String)
+    case notEquals(String)
     case contains(String)
     case notContains(String)
 }

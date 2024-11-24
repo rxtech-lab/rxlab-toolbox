@@ -9,6 +9,7 @@ import Common
 import SwiftData
 import SwiftUI
 import TelegramAdapter
+import TestKit
 
 @main
 struct RxlabToolbox: App {
@@ -18,6 +19,7 @@ struct RxlabToolbox: App {
     @State private var mockTelegramKitManager = MockTelegramKitManager()
     @State private var confirmManager = ConfirmManager()
     @State private var adapterManager = AdapterManager()
+    @State private var testManager = TestkitManager()
 
     var body: some Scene {
         DocumentGroup(newDocument: RxToolboxDocument()) { file in
@@ -29,6 +31,7 @@ struct RxlabToolbox: App {
         .environment(alertManager)
         .environment(mockTelegramKitManager)
         .environment(confirmManager)
+        .environment(testManager)
         .environment(adapterManager)
 
         WindowGroup(id: "welcome-window") {

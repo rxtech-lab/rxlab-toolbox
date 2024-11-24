@@ -44,6 +44,7 @@ struct ChatroomDetail: View {
                     )
                 }
             )
+            .recordMessages(messagesCount: messages.count)
             .frame(minWidth: 500)
             .onChange(of: chatroom) { _, newValue in
                 currentChatroom = newValue

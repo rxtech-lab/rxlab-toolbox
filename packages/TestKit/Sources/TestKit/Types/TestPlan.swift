@@ -1,70 +1,49 @@
-//
-//  TestPlan.swift
-//  TestKit
-//
-//  Created by Qiwei Li on 11/24/24.
-//
 import Foundation
 
+/// A test plan that contains a sequence of test steps to be executed.
+/// Used to define automated test scenarios for user interactions.
 public struct TestPlan: Codable, Identifiable, Equatable {
     public var id = UUID()
     public var name: String
     public var createdAt: Date = .init()
-    public private(set) var child: TestStep?
+    public private(set) var steps: [TestStep]
 
     public init(id: UUID = UUID(), name: String, createdAt: Date = .now) {
         self.id = id
         self.name = name
         self.createdAt = createdAt
-        self.child = nil
+        self.steps = []
     }
 
-    init(id: UUID = UUID(), name: String, createdAt: Date = .now, child: TestStep?) {
+    init(id: UUID = UUID(), name: String, createdAt: Date = .now, steps: [TestStep]) {
         self.id = id
         self.name = name
         self.createdAt = createdAt
-        self.child = child
+        self.steps = steps
     }
 
     public func addStep(_ step: TestStep) -> Self {
-        if let child = child {
-            return TestPlan(id: id, name: name, createdAt: createdAt, child: child.addStep(step))
+        TestPlan(id: id, name: name, createdAt: createdAt, steps: steps + [step])
+    }
+
+    public func updateStep(_ step: TestStep, at id: UUID) -> Self {
+        let updatedSteps = steps.map { s in
+            if s.rawValue.id == id {
+                return step
+            }
+            return s.updateStep(step, at: id)
         }
-        return TestPlan(id: id, name: name, createdAt: createdAt, child: step)
+        return TestPlan(id: self.id, name: name, createdAt: createdAt, steps: updatedSteps)
+    }
+
+    public func deleteStep(at id: UUID) -> Self {
+        let filteredSteps = steps.filter { $0.rawValue.id != id }
+        return TestPlan(id: self.id, name: name, createdAt: createdAt, steps: filteredSteps)
     }
 }
 
-/**
- TestStep represents different types of test actions that can be performed.
- Each case corresponds to a specific type of user interaction or validation.
-
- Examples:
- ```swift
- // Button click with validation
- let clickStep: TestStep = .buttonClick(ButtonClickStep(
-     buttonText: "Submit",
-     messageIndex: "response-1",
-     children: [
-         .expectMessageText(ExpectMessageTextStep(
-             messageIndex: "response-1",
-             text: .contains("Success"),
-             children: []
-         ))
-     ]
- ))
-
- // Text input with subsequent validation
- let inputStep: TestStep = .textInput(TextInputStep(
-     text: "Hello, world!",
-     children: [
-         .expectMessageCount(ExpectMessageCountStep(
-             count: .greaterThan(2),
-             children: []
-         ))
-     ]
- ))
- ```
- */
+/// Represents different types of test actions that can be executed.
+/// Each case corresponds to a specific user interaction or validation step.
 public enum TestStep: Codable, Hashable {
     case buttonClick(ButtonClickStep)
     case textInput(TextInputStep)
@@ -79,8 +58,7 @@ public enum TestStep: Codable, Hashable {
         case .textInput(let textInput):
             return .textInput(textInput.addStep(step))
         case .expectMessageText(let expectMessageText):
-            let newExpectMessageText = expectMessageText.addStep(step)
-            return .expectMessageText(newExpectMessageText)
+            return .expectMessageText(expectMessageText.addStep(step))
         case .expectMessageCount(let expectMessageCount):
             return .expectMessageCount(expectMessageCount.addStep(step))
         case .group(let group):
@@ -88,112 +66,71 @@ public enum TestStep: Codable, Hashable {
         }
     }
 
+    func updateStep(_ step: TestStep, at id: UUID) -> Self {
+        switch self {
+        case .buttonClick(let buttonClick):
+            return .buttonClick(buttonClick.updateStep(step, at: id))
+        case .textInput(let textInput):
+            return .textInput(textInput.updateStep(step, at: id))
+        case .expectMessageText(let expectMessageText):
+            return .expectMessageText(expectMessageText.updateStep(step, at: id))
+        case .expectMessageCount(let expectMessageCount):
+            return .expectMessageCount(expectMessageCount.updateStep(step, at: id))
+        case .group(let group):
+            return .group(group.updateStep(step, at: id))
+        }
+    }
+
     var rawValue: any StepProtocol {
         switch self {
-        case .buttonClick(let step):
-            return step
-        case .textInput(let step):
-            return step
-        case .expectMessageText(let step):
-            return step
-        case .expectMessageCount(let step):
-            return step
-        case .group(let step):
-            return step
+        case .buttonClick(let step): return step
+        case .textInput(let step): return step
+        case .expectMessageText(let step): return step
+        case .expectMessageCount(let step): return step
+        case .group(let step): return step
         }
     }
 }
 
-// MARK: Button Click
-
-/**
- ButtonClickStep simulates a user clicking a button in the UI.
- It can target a specific button by its text and optionally reference a specific message
- for validation purposes.
-
- Examples:
- ```swift
- // Simple button click
- let simpleClick = ButtonClickStep(
-     buttonText: "Submit",
-     children: []
- )
-
- // Button click with message reference and validation
- let complexClick = ButtonClickStep(
-     buttonText: "Generate",
-     messageIndex: "gen-response",
-     children: [
-         .expectMessageText(ExpectMessageTextStep(
-             messageIndex: "gen-response",
-             text: .contains("Generated successfully"),
-             children: []
-         ))
-     ]
- )
- ```
- */
+/// Simulates a button click interaction in the UI.
+/// Can be used to test button-based interactions and their responses.
 public struct ButtonClickStep: StepProtocol {
     public var id = UUID()
     public var buttonText: String
-    public var messageIndex: Int
+    public var messageId: Int
     public private(set) var children: [TestStep]
 
-    public init(id: UUID = UUID(), buttonText: String, messageIndex: Int) {
+    public init(id: UUID = UUID(), buttonText: String, messageId: Int) {
         self.id = id
         self.buttonText = buttonText
-        self.messageIndex = messageIndex
+        self.messageId = messageId
         self.children = []
     }
 
-    init(id: UUID = UUID(), buttonText: String, messageIndex: Int, children: [TestStep]) {
+    init(id: UUID = UUID(), buttonText: String, messageId: Int, children: [TestStep]) {
         self.id = id
         self.buttonText = buttonText
-        self.messageIndex = messageIndex
+        self.messageId = messageId
         self.children = children
     }
 
     public func addStep(_ step: TestStep) -> ButtonClickStep {
-        if let firstChild = children.first {
-            let newFirstChild = firstChild.addStep(step)
-            return ButtonClickStep(id: id, buttonText: buttonText, messageIndex: messageIndex, children: [newFirstChild])
-        }
+        ButtonClickStep(id: id, buttonText: buttonText, messageId: messageId, children: children + [step])
+    }
 
-        return ButtonClickStep(id: id, buttonText: buttonText, messageIndex: messageIndex, children: [step])
+    public func updateStep(_ newStep: TestStep, at targetId: UUID) -> ButtonClickStep {
+        let updatedChildren = children.map { step in
+            if step.rawValue.id == targetId {
+                return newStep
+            }
+            return step.updateStep(newStep, at: targetId)
+        }
+        return ButtonClickStep(id: id, buttonText: buttonText, messageId: messageId, children: updatedChildren)
     }
 }
 
-// MARK: - Text Input and Validation
-
-/**
- TextInputStep represents a user entering text into an input field.
- This step is commonly used for simulating form filling or chat message sending.
-
- Examples:
- ```swift
- // Simple text input
- let simpleInput = TextInputStep(
-     text: "Hello, world!",
-     children: []
- )
-
- // Text input with validation
- let inputWithValidation = TextInputStep(
-     text: "Query about pricing",
-     children: [
-         .expectMessageText(ExpectMessageTextStep(
-             messageIndex: "response-1",
-             text: .contains("pricing"),
-             children: []
-         )),
-         .expectMessageCount(ExpectMessageCountStep(
-             count: .equals(1),
-             children: []
-         ))
-     ]
- )
- ```
- */
+/// Represents a text input action in the UI.
+/// Used for testing form inputs, chat messages, or any text-based interaction.
 public struct TextInputStep: StepProtocol {
     public var id = UUID()
     public var text: String
@@ -212,12 +149,17 @@ public struct TextInputStep: StepProtocol {
     }
 
     public func addStep(_ step: TestStep) -> TextInputStep {
-        if let firstChild = children.first {
-            let newFirstChild = firstChild.addStep(step)
-            return TextInputStep(id: id, text: text, children: [newFirstChild])
-        }
+        TextInputStep(id: id, text: text, children: children + [step])
+    }
 
-        return TextInputStep(id: id, text: text, children: [step])
+    public func updateStep(_ newStep: TestStep, at targetId: UUID) -> Self {
+        let updatedChildren = children.map { step in
+            if step.rawValue.id == targetId {
+                return newStep
+            }
+            return step.updateStep(newStep, at: targetId)
+        }
+        return TextInputStep(id: id, text: text, children: updatedChildren)
     }
 }
 
@@ -227,105 +169,45 @@ extension TextInputStep: ExpressibleByStringLiteral {
     }
 }
 
-// MARK: - Message Validation
-
-/**
- ExpectMessageTextStep validates the content of a specific message.
- It supports various text comparison operations like equality, containment, and non-containment.
-
- Examples:
- ```swift
- // Exact text matching
- let exactMatch = ExpectMessageTextStep(
-     messageIndex: "response-1",
-     text: .equals("Expected exact response"),
-     children: []
- )
-
- // Partial text matching
- let containsMatch = ExpectMessageTextStep(
-     messageIndex: "response-2",
-     text: .contains("error"),
-     children: []
- )
-
- // Negative text matching
- let notContainsMatch = ExpectMessageTextStep(
-     messageIndex: "response-3",
-     text: .notContains("failure"),
-     children: []
- )
- ```
- */
+/// Validates the content of a specific message.
+/// Used to verify that responses contain expected text or patterns.
 public struct ExpectMessageTextStep: StepProtocol {
     public var id = UUID()
-    public var messageIndex: Int
+    public var messageId: Int
     public var text: TextExpectationOperator
     public private(set) var children: [TestStep]
 
-    public init(id: UUID = UUID(), messageIndex: Int, text: TextExpectationOperator) {
+    public init(id: UUID = UUID(), messageId: Int, text: TextExpectationOperator) {
         self.id = id
-        self.messageIndex = messageIndex
+        self.messageId = messageId
         self.text = text
         self.children = []
     }
 
-    init(id: UUID = UUID(), messageIndex: Int, text: TextExpectationOperator, children: [TestStep]) {
+    init(id: UUID = UUID(), messageId: Int, text: TextExpectationOperator, children: [TestStep]) {
         self.id = id
-        self.messageIndex = messageIndex
+        self.messageId = messageId
         self.text = text
         self.children = children
     }
 
     public func addStep(_ step: TestStep) -> ExpectMessageTextStep {
-        if let firstChild = children.first {
-            let newFirstChild = firstChild.addStep(step)
-            return ExpectMessageTextStep(id: id, messageIndex: messageIndex, text: text, children: [newFirstChild])
-        }
+        ExpectMessageTextStep(id: id, messageId: messageId, text: text, children: children + [step])
+    }
 
-        return ExpectMessageTextStep(id: id, messageIndex: messageIndex, text: text, children: [step])
+    public func updateStep(_ newStep: TestStep, at targetId: UUID) -> Self {
+        let updatedChildren = children.map { step in
+            if step.rawValue.id == targetId {
+                return newStep
+            }
+            return step.updateStep(newStep, at: targetId)
+        }
+        return ExpectMessageTextStep(id: id, messageId: messageId, text: text, children: updatedChildren)
     }
 }
 
-// MARK: - Message Count Validation
-
-/**
- ExpectMessageCountStep validates the number of messages present.
- It supports various numerical comparisons like equality, greater than, and less than.
-
- Examples:
- ```swift
- // Exact count matching
- let exactCount = ExpectMessageCountStep(
-     count: .equals(3),
-     children: []
- )
-
- // Minimum count validation
- let minimumCount = ExpectMessageCountStep(
-     count: .greaterThan(5),
-     children: []
- )
-
- // Maximum count validation
- let maximumCount = ExpectMessageCountStep(
-     count: .lessThan(10),
-     children: []
- )
-
- // Complex validation chain
- let complexCount = ExpectMessageCountStep(
-     count: .greaterThan(2),
-     children: [
-         .expectMessageText(ExpectMessageTextStep(
-             messageIndex: "last",
-             text: .contains("completion"),
-             children: []
-         ))
-     ]
- )
- ```
- */
+/// Validates the number of messages in a conversation.
+/// Used to ensure the expected number of responses or interactions occurred.
 public struct ExpectMessageCountStep: StepProtocol {
     public var id = UUID()
     public var count: MessageExpectationOperator
@@ -344,18 +226,22 @@ public struct ExpectMessageCountStep: StepProtocol {
     }
 
     public func addStep(_ step: TestStep) -> ExpectMessageCountStep {
-        if let firstChild = children.first {
-            let newFirstChild = firstChild.addStep(step)
-            return ExpectMessageCountStep(id: id, count: count, children: [newFirstChild])
-        }
+        ExpectMessageCountStep(id: id, count: count, children: children + [step])
+    }
 
-        return ExpectMessageCountStep(id: id, count: count, children: [step])
+    public func updateStep(_ newStep: TestStep, at targetId: UUID) -> Self {
+        let updatedChildren = children.map { step in
+            if step.rawValue.id == targetId {
+                return newStep
+            }
+            return step.updateStep(newStep, at: targetId)
+        }
+        return ExpectMessageCountStep(id: id, count: count, children: updatedChildren)
     }
 }
 
-/**
- Group one or more steps together for better organization and readability.
- */
+/// Groups related test steps together for better organization.
+/// Useful for creating logical sections in a test plan.
 public struct GroupStep: StepProtocol {
     public var id: UUID
     public var name: String?
@@ -372,11 +258,16 @@ public struct GroupStep: StepProtocol {
     }
 
     public func addStep(_ step: TestStep) -> GroupStep {
-        if let firstChild = children.first {
-            let newFirstChild = firstChild.addStep(step)
-            return GroupStep(id: id, name: name, children: [newFirstChild])
-        }
+        GroupStep(id: id, name: name, children: children + [step])
+    }
 
-        return GroupStep(id: id, name: name, children: [step])
+    public func updateStep(_ newStep: TestStep, at targetId: UUID) -> Self {
+        let updatedChildren = children.map { step in
+            if step.rawValue.id == targetId {
+                return newStep
+            }
+            return step.updateStep(newStep, at: targetId)
+        }
+        return GroupStep(id: id, name: name, children: updatedChildren)
     }
 }
