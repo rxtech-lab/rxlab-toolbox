@@ -30,4 +30,8 @@ import SwiftUI
         testplan?.name = name
         saveEvent.send()
     }
+
+    public func recordMessageSend(_ message: String) {
+        testplan = testplan?.addStep(.textInput(.init(stringLiteral: message)))
+    }
 }

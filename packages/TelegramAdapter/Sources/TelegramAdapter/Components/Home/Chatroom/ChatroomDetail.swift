@@ -9,12 +9,14 @@ import Combine
 import Common
 import MockTelegramKit
 import SwiftUI
+import TestKit
 
 struct ChatroomDetail: View {
     let chatroom: Chatroom
     @State var messages: [Message] = []
     @Environment(ConfirmManager.self) var confirmManager
     @Environment(TelegramServerManager.self) var mockServerManager
+    @Environment(TestkitManager.self) var testKitManager
     @AppStorage("webhookHost") private var host = "0.0.0.0"
     @AppStorage("webhookPort") private var port = 8080
     @State var currentChatroom: Chatroom
@@ -36,12 +38,14 @@ struct ChatroomDetail: View {
                             _ = await ChatManager.shared.sendMessage(
                                 chatroomId: chatroom.id, messageRequest: .init(type: .text, content: message)
                             )
+                            testKitManager.recordMessageSend(message)
                         }
                         return
                     }
                     _ = await ChatManager.shared.sendMessage(
                         chatroomId: chatroom.id, messageRequest: .init(type: .text, content: message)
                     )
+                    testKitManager.recordMessageSend(message)
                 }
             )
             .contextMenu {

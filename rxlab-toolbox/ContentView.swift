@@ -58,6 +58,15 @@ struct ContentView: View {
             }
             await load()
         }
+        .onChange(of: document.testPlans) { _, newValue in
+            // if the test plan is removed, reset the selected item
+            if case let .SideBar(.TestPlan(plan)) = selectedSidebarItem {
+                // check if the selected item is removed
+                if !newValue.contains(plan) {
+                    selectedSidebarItem = nil
+                }
+            }
+        }
         .onReceive(testkitManager.saveEvent, perform: { _ in
             if let plan = testkitManager.testplan {
                 document.testPlans.append(plan)
