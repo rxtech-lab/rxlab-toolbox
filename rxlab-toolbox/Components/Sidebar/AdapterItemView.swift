@@ -4,6 +4,7 @@ import TelegramAdapter
 
 struct AdapterItemView: View {
     let adapter: any Adapter
+    @Binding var document: RxToolboxDocument
     @State private var isHovered = false
 
     var body: some View {
@@ -21,6 +22,9 @@ struct AdapterItemView: View {
                 }
             }
         }
+        .contextMenu {
+            AdapterContextMenu(document: $document, adapter: adapter)
+        }
         .onTapGesture {
             print("Tapped")
         }
@@ -30,15 +34,5 @@ struct AdapterItemView: View {
                 isHovered = hovering
             }
         }
-    }
-}
-
-#Preview {
-    NavigationSplitView {
-        List {
-            AdapterItemView(adapter: TelegramAdapter())
-        }
-    } detail: {
-        Text("Detail view")
     }
 }

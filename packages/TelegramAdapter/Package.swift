@@ -19,6 +19,7 @@ let package = Package(
         .package(url: "https://github.com/rxtech-lab/mock-telegram-server", from: "1.3.4"),
         .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.7.6"),
         .package(path: "../Common"),
+        .package(path: "../TestKit"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -27,6 +28,7 @@ let package = Package(
             name: "TelegramAdapter",
             dependencies: [
                 .product(name: "MockTelegramKit", package: "mock-telegram-server"),
+                .product(name: "TestKit", package: "TestKit"),
                 .product(name: "Common", package: "Common"),
                 .product(name: "SwiftSoup", package: "swiftsoup"),
             ],

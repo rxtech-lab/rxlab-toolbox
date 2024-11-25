@@ -38,15 +38,32 @@ struct AdapterForm: View {
 
 struct AdapterContextMenu: View {
     @Binding var document: RxToolboxDocument
+    let adapter: (any Adapter)?
     @Environment(SheetManager.self) var sheetManager
+    @Environment(AdapterManager.self) var adapterManager
 
     var body: some View {
-        Button {
-            sheetManager.showSheet {
-                AdapterForm(document: $document)
+        Group {
+            if let adapter = adapter {
+                Button {
+                    if let availableAdapter = AvailableAdapters.from(adapter: adapter) {
+                        if let index = document.adapters.firstIndex(of: availableAdapter) {
+                            document.adapters.remove(at: index)
+                            adapterManager.removeAdapter(adapter: adapter)
+                        }
+                    }
+                } label: {
+                    Label("Remove adapter", systemImage: "minus")
+                }
+            } else {
+                Button {
+                    sheetManager.showSheet {
+                        AdapterForm(document: $document)
+                    }
+                } label: {
+                    Label("Add adapter", systemImage: "plus")
+                }
             }
-        } label: {
-            Label("Add adapter", systemImage: "plus")
         }
     }
 }

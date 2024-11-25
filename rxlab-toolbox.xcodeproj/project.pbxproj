@@ -10,6 +10,7 @@
 		DF3742832CEDC67800AE561A /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = DF3742822CEDC67800AE561A /* Common */; };
 		DF3742862CEDC68500AE561A /* TelegramAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = DF3742852CEDC68500AE561A /* TelegramAdapter */; };
 		DFAEA5FF2CEE3353004AB935 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = DFAEA5FE2CEE3353004AB935 /* AnyCodable */; };
+		DFAEA6D32CF3299C004AB935 /* TestKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFAEA6D22CF3299C004AB935 /* TestKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		DF176F662CEDAFDA00AB06BF /* TelegramAdapter */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TelegramAdapter; path = packages/TelegramAdapter; sourceTree = "<group>"; };
 		DF635DE62CEDB8F9003B6463 /* Common */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Common; path = packages/Common; sourceTree = "<group>"; };
+		DFAEA66A2CF1D19D004AB935 /* TestKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TestKit; path = packages/TestKit; sourceTree = "<group>"; };
 		DFB14A9B2CEC434A00B3A43B /* rxlab-toolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "rxlab-toolbox.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB14AAC2CEC434B00B3A43B /* rxlab-toolboxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rxlab-toolboxTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB14AB62CEC434B00B3A43B /* rxlab-toolboxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rxlab-toolboxUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +78,7 @@
 				DF3742832CEDC67800AE561A /* Common in Frameworks */,
 				DFAEA5FF2CEE3353004AB935 /* AnyCodable in Frameworks */,
 				DF3742862CEDC68500AE561A /* TelegramAdapter in Frameworks */,
+				DFAEA6D32CF3299C004AB935 /* TestKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +102,7 @@
 		DFB14A922CEC434A00B3A43B = {
 			isa = PBXGroup;
 			children = (
+				DFAEA66A2CF1D19D004AB935 /* TestKit */,
 				DF635DE62CEDB8F9003B6463 /* Common */,
 				DF176F662CEDAFDA00AB06BF /* TelegramAdapter */,
 				DFB14A9D2CEC434A00B3A43B /* rxlab-toolbox */,
@@ -141,6 +145,7 @@
 				DF3742822CEDC67800AE561A /* Common */,
 				DF3742852CEDC68500AE561A /* TelegramAdapter */,
 				DFAEA5FE2CEE3353004AB935 /* AnyCodable */,
+				DFAEA6D22CF3299C004AB935 /* TestKit */,
 			);
 			productName = "rxlab-toolbox";
 			productReference = DFB14A9B2CEC434A00B3A43B /* rxlab-toolbox.app */;
@@ -229,6 +234,7 @@
 				DF3742812CEDC67800AE561A /* XCLocalSwiftPackageReference "packages/Common" */,
 				DF3742842CEDC68500AE561A /* XCLocalSwiftPackageReference "packages/TelegramAdapter" */,
 				DFAEA5FD2CEE3353004AB935 /* XCRemoteSwiftPackageReference "anycodable" */,
+				DFAEA6D12CF3299C004AB935 /* XCLocalSwiftPackageReference "packages/TestKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DFB14A9C2CEC434A00B3A43B /* Products */;
@@ -600,6 +606,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = packages/TelegramAdapter;
 		};
+		DFAEA6D12CF3299C004AB935 /* XCLocalSwiftPackageReference "packages/TestKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = packages/TestKit;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -626,6 +636,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DFAEA5FD2CEE3353004AB935 /* XCRemoteSwiftPackageReference "anycodable" */;
 			productName = AnyCodable;
+		};
+		DFAEA6D22CF3299C004AB935 /* TestKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TestKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

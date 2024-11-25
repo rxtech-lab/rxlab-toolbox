@@ -1,17 +1,20 @@
 import Common
 import MockTelegramKit
 import SwiftUI
+import TestKit
 
 struct MessageView: View {
     let message: Message
+    let index: Int
     private let currentUserId = getCurrentUserId()
     let onButtonPress: ((InlineKeyboardButton) -> Void)?
     @State var showErrorMessage = false
     @State var size: CGSize = .zero
 
-    init(message: Message, onButtonPress: ((InlineKeyboardButton) -> Void)? = nil) {
+    init(message: Message, index: Int, onButtonPress: ((InlineKeyboardButton) -> Void)? = nil) {
         self.message = message
         self.onButtonPress = onButtonPress
+        self.index = index
     }
 
     func hasInlineKeyboard() -> Bool {
@@ -57,6 +60,7 @@ struct MessageView: View {
                 Spacer(minLength: min(200, 0.6 * size.width))
             }
         }
+        .recordMessage(at: index)
         .saveSize(in: $size)
         .frame(minWidth: 500)
     }
@@ -133,6 +137,7 @@ struct MessageView: View {
                 .background(.black)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
         }
+        .recordButton(with: button.text, at: index)
         .buttonStyle(PlainButtonStyle())
     }
 
@@ -146,6 +151,6 @@ struct MessageView: View {
     var message = Message(messageId: 1, text: "Hello", userId: 0)
     message.error = WebhookError.webhookCallFailed("Some very very long error message.Some very very long error message.Some very very long error message.Some very very long error message.Some very very long error message.Some very very long error message.")
 
-    return MessageView(message: message) { _ in
+    return MessageView(message: message, index: 0) { _ in
     }
 }

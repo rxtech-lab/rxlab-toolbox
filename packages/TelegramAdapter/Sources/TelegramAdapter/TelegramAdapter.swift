@@ -36,7 +36,6 @@ public struct TelegramAdapter: Adapter {
         AnyView(
             Group {
                 StartOrStopServerButton(variant: .sidebar)
-
             })
     }
 }

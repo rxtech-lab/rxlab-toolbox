@@ -49,8 +49,10 @@
         }
       }
     },
+    "Build" : {
+
+    },
     "Cancel" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -63,7 +65,19 @@
     "Continue" : {
 
     },
+    "Delete Test Plan" : {
+
+    },
+    "Edit Test Plan" : {
+
+    },
+    "Name" : {
+
+    },
     "OK" : {
+
+    },
+    "Remove adapter" : {
 
     },
     "RxLab Toolbox" : {
@@ -76,10 +90,19 @@
         }
       }
     },
+    "Save" : {
+
+    },
     "Storage" : {
 
     },
     "Telegram Adapter" : {
+
+    },
+    "Test" : {
+
+    },
+    "Test Plans" : {
 
     },
     "Version: %@" : {
