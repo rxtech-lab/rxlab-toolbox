@@ -52,6 +52,36 @@
                ReferencedContainer = "container:rxlab-toolbox.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CommonTests"
+               BuildableName = "CommonTests"
+               BlueprintName = "CommonTests"
+               ReferencedContainer = "container:packages/Common">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TelegramAdapterTests"
+               BuildableName = "TelegramAdapterTests"
+               BlueprintName = "TelegramAdapterTests"
+               ReferencedContainer = "container:packages/TelegramAdapter">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TestKitTests"
+               BuildableName = "TestKitTests"
+               BlueprintName = "TestKitTests"
+               ReferencedContainer = "container:packages/TestKit">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
