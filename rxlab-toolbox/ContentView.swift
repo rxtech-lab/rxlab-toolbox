@@ -120,10 +120,7 @@ struct ContentView: View {
             AnyView(adapter.contentView)
         case let .SideBar(.TestPlan(plan)):
             if let plan = document.testPlans.first(where: { $0.id == plan.id }) {
-                TestPlanFlowView(testPlan: plan) {
-                    newPlan in
-                    document.testPlans = document.testPlans.map { $0.id == newPlan.id ? newPlan : $0 }
-                }
+                TestPlanDetailView(plan: plan, document: $document)
             }
         default:
             EmptyStateView(iconName: "tray.full", title: "No detail to display", message: "Select an item to view details")

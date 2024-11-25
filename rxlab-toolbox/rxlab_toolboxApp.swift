@@ -6,10 +6,13 @@
 //
 
 import Common
+import Logging
 import SwiftData
 import SwiftUI
 import TelegramAdapter
 import TestKit
+
+let logger = Logger(label: "rxlab.rxlab-toolbox")
 
 @main
 struct RxlabToolbox: App {

@@ -11,6 +11,7 @@
 		DF3742862CEDC68500AE561A /* TelegramAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = DF3742852CEDC68500AE561A /* TelegramAdapter */; };
 		DFAEA5FF2CEE3353004AB935 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = DFAEA5FE2CEE3353004AB935 /* AnyCodable */; };
 		DFAEA6D32CF3299C004AB935 /* TestKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFAEA6D22CF3299C004AB935 /* TestKit */; };
+		DFAEA6E12CF49233004AB935 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = DFAEA6E02CF49233004AB935 /* Logging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 				DFAEA5FF2CEE3353004AB935 /* AnyCodable in Frameworks */,
 				DF3742862CEDC68500AE561A /* TelegramAdapter in Frameworks */,
 				DFAEA6D32CF3299C004AB935 /* TestKit in Frameworks */,
+				DFAEA6E12CF49233004AB935 /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +148,7 @@
 				DF3742852CEDC68500AE561A /* TelegramAdapter */,
 				DFAEA5FE2CEE3353004AB935 /* AnyCodable */,
 				DFAEA6D22CF3299C004AB935 /* TestKit */,
+				DFAEA6E02CF49233004AB935 /* Logging */,
 			);
 			productName = "rxlab-toolbox";
 			productReference = DFB14A9B2CEC434A00B3A43B /* rxlab-toolbox.app */;
@@ -235,6 +238,7 @@
 				DF3742842CEDC68500AE561A /* XCLocalSwiftPackageReference "packages/TelegramAdapter" */,
 				DFAEA5FD2CEE3353004AB935 /* XCRemoteSwiftPackageReference "anycodable" */,
 				DFAEA6D12CF3299C004AB935 /* XCLocalSwiftPackageReference "packages/TestKit" */,
+				DFAEA6DF2CF49233004AB935 /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DFB14A9C2CEC434A00B3A43B /* Products */;
@@ -621,6 +625,14 @@
 				minimumVersion = 0.6.7;
 			};
 		};
+		DFAEA6DF2CF49233004AB935 /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -640,6 +652,11 @@
 		DFAEA6D22CF3299C004AB935 /* TestKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TestKit;
+		};
+		DFAEA6E02CF49233004AB935 /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFAEA6DF2CF49233004AB935 /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -9,7 +9,6 @@ struct MessageView: View {
     private let currentUserId = getCurrentUserId()
     let onButtonPress: ((InlineKeyboardButton) -> Void)?
     @State var showErrorMessage = false
-    @State var size: CGSize = .zero
 
     init(message: Message, index: Int, onButtonPress: ((InlineKeyboardButton) -> Void)? = nil) {
         self.message = message
@@ -51,17 +50,16 @@ struct MessageView: View {
     var body: some View {
         HStack {
             if message.userId == currentUserId {
-                Spacer(minLength: min(200, 0.6 * size.width))
+                Spacer(minLength: 100)
                 errorMessageIcon(direction: .leading)
                 messageContent
             } else {
                 messageContent
                 errorMessageIcon(direction: .trailing)
-                Spacer(minLength: min(200, 0.6 * size.width))
+                Spacer(minLength: 100)
             }
         }
         .recordMessage(at: index)
-        .saveSize(in: $size)
         .frame(minWidth: 500)
     }
 
