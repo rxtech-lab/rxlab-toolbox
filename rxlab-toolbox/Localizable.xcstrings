@@ -49,6 +49,9 @@
         }
       }
     },
+    "Build" : {
+
+    },
     "Cancel" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -80,6 +83,9 @@
 
     },
     "Telegram Adapter" : {
+
+    },
+    "Test" : {
 
     },
     "Version: %@" : {

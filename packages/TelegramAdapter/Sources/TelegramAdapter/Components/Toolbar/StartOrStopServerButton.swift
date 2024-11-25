@@ -81,7 +81,7 @@ struct StartOrStopServerButton: View {
                         }
                     }
                 } label: {
-                    Image(systemName: "stop.fill")
+                    Label("Stop server", systemImage: "stop.fill")
                 }
                 .help("Stop the server")
             } else {
@@ -95,7 +95,7 @@ struct StartOrStopServerButton: View {
                         }
                     }
                 } label: {
-                    Image(systemName: "play.fill")
+                    Label("Start server", systemImage: "play.fill")
                 }
                 .help("Start the server")
             }

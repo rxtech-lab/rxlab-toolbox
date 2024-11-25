@@ -76,16 +76,23 @@ struct ContentView: View {
     }
 
     private var sidebarContent: some View {
-        List(selection: $selectedSidebarItem) {
-            Section(AppStrings.adapterSection.rawValue) {
-                ForEach(adapterManager.adapters, id: \.id) { adapter in
-                    AdapterItemView(adapter: adapter)
+        TabView {
+            Tab("Build", systemImage: "hammer") {
+                List(selection: $selectedSidebarItem) {
+                    Section(AppStrings.adapterSection.rawValue) {
+                        ForEach(adapterManager.adapters, id: \.id) { adapter in
+                            AdapterItemView(adapter: adapter)
+                        }
+                    }
+
+                    Section(AppStrings.storageSection.rawValue) {}
+
+                    Section(AppStrings.apiSection.rawValue) {}
                 }
+                .listStyle(.sidebar)
             }
 
-            Section(AppStrings.storageSection.rawValue) {}
-
-            Section(AppStrings.apiSection.rawValue) {}
+            Tab("Test", systemImage: "flame") {}
         }
         .frame(minWidth: 300)
     }

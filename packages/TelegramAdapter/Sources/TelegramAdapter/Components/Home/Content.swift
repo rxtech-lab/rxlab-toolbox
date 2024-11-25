@@ -54,7 +54,7 @@ struct TelegramContentView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                EnvironmentToggle(isDevelopment: $isDevelopment)
+                TestRecordButton()
             }
             ToolbarItem {
                 HStack {
