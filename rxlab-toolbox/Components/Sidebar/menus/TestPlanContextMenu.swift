@@ -56,5 +56,8 @@ struct TestPlanContextMenu: View {
                 selected = nil
             }
         }
+        Menu("Export") {
+            ExportTestPlanMenu(plan: plan)
+        }
     }
 }

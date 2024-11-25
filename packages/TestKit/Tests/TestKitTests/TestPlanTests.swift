@@ -23,10 +23,13 @@ import Testing
     let testplan = TestPlan(name: "Hello World")
         .addStep(.textInput("Hello world"))
         .addStep(.buttonClick(.init(buttonText: "Hello", messageId: 1)))
-        .addStep(.group(.init(children: [
-            .expectMessageText(.init(messageId: 0, text: .equals("Hello world"))),
-            .expectMessageText(.init(messageId: 1, text: .equals("Hello")))
-        ])))
+        .addStep(
+            .group(
+                .init(messageId: 1)
+                    .addChild(.expectMessageText(.init(messageId: 0, text: .equals("Hello world"))))
+                    .addChild(.expectMessageText(.init(messageId: 1, text: .equals("Hello"))))
+            )
+        )
 
     let firstStep = testplan.steps[0].rawValue as! TextInputStep
     #expect(firstStep.text == "Hello world", "Text input step should have the correct text")
@@ -43,10 +46,11 @@ import Testing
     let testplan = TestPlan(name: "Hello World")
         .addStep(.textInput("Hello world"))
         .addStep(.buttonClick(.init(buttonText: "Hello", messageId: 1)))
-        .addStep(.group(.init(id: groupUUID, children: [
-            .expectMessageText(.init(messageId: 0, text: .equals("Hello world"))),
-            .expectMessageText(.init(messageId: 1, text: .equals("Hello")))
-        ])))
+        .addStep(.group(
+            .init(id: groupUUID, messageId: 1)
+                .addChild(.expectMessageText(.init(messageId: 0, text: .equals("Hello world"))))
+                .addChild(.expectMessageText(.init(messageId: 1, text: .equals("Hello"))))
+        ))
 
     let updatedPlan = testplan.updateStep(.textInput("Goodbye"), at: groupUUID)
     let text = updatedPlan.steps[2].rawValue as! TextInputStep
@@ -64,7 +68,7 @@ import Testing
     let testplan = TestPlan(name: "Hello World")
         .addStep(.textInput(.init(id: textInputUUID, text: "Hello world")))
         .addStep(.buttonClick(.init(id: buttonClickUUID, buttonText: "Hello", messageId: 1)))
-        .addStep(.group(.init(id: groupUUID, children: [
+        .addStep(.group(.init(id: groupUUID, messageId: 1, children: [
             .expectMessageText(.init(id: messageTextUUID, messageId: 0, text: .equals("Hello world"))),
             .expectMessageText(.init(messageId: 1, text: .equals("Hello")))
         ])))
