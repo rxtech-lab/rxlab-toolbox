@@ -44,6 +44,15 @@ struct ChatroomDetail: View {
                     )
                 }
             )
+            .contextMenu {
+                Button {
+                    Task {
+                        await ChatManager.shared.reset(chatroomId: chatroom.id)
+                    }
+                } label: {
+                    Label("Clear Messages", systemImage: "trash")
+                }
+            }
             .recordMessages(messagesCount: messages.count)
             .frame(minWidth: 500)
             .onChange(of: chatroom) { _, newValue in
