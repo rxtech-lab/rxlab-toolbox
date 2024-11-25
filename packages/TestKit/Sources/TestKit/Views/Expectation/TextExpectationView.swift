@@ -29,20 +29,20 @@ struct TextExpectationView: View {
         self.onExpectationUpdate = onExpectationUpdate
         switch expection {
         case .contains(let value):
-            selectedOperation = .contain
-            expectedValue = value
+            _selectedOperation = State(initialValue: .contain)
+            _expectedValue = State(initialValue: value)
 
         case .equals(let value):
-            selectedOperation = .equal
-            expectedValue = value
+            _selectedOperation = State(initialValue: .equal)
+            _expectedValue = State(initialValue: value)
 
         case .notContains(let value):
-            selectedOperation = .notContain
-            expectedValue = value
+            _selectedOperation = State(initialValue: .notContain)
+            _expectedValue = State(initialValue: value)
 
         case .notEquals(let value):
-            selectedOperation = .contain
-            expectedValue = value
+            _selectedOperation = State(initialValue: .notEqual)
+            _expectedValue = State(initialValue: value)
         }
     }
 

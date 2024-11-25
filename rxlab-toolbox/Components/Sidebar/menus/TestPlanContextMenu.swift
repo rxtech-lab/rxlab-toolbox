@@ -15,11 +15,13 @@ struct TestPlanContextMenu: View {
 
     @Environment(SheetManager.self) var sheetManager
     @State var name: String = ""
+    @Binding var selected: NavigationPath?
 
-    init(plan: TestPlan, document: Binding<RxToolboxDocument>) {
+    init(plan: TestPlan, document: Binding<RxToolboxDocument>, selected: Binding<NavigationPath?>) {
         self.plan = plan
         _document = document
         _name = State(initialValue: plan.name)
+        _selected = selected
     }
 
     var body: some View {
@@ -51,6 +53,7 @@ struct TestPlanContextMenu: View {
         Button("Delete Test Plan") {
             if let index = document.testPlans.firstIndex(of: plan) {
                 document.testPlans.remove(at: index)
+                selected = nil
             }
         }
     }

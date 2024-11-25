@@ -58,15 +58,6 @@ struct ContentView: View {
             }
             await load()
         }
-        .onChange(of: document.testPlans) { _, newValue in
-            // if the test plan is removed, reset the selected item
-            if case let .SideBar(.TestPlan(plan)) = selectedSidebarItem {
-                // check if the selected item is removed
-                if !newValue.contains(plan) {
-                    selectedSidebarItem = nil
-                }
-            }
-        }
         .onReceive(testkitManager.saveEvent, perform: { _ in
             if let plan = testkitManager.testplan {
                 document.testPlans.append(plan)
@@ -112,7 +103,7 @@ struct ContentView: View {
                 List(selection: $selectedSidebarItem) {
                     Section("Test Plans") {
                         ForEach(document.testPlans) { plan in
-                            TestPlanItemView(plan: plan, document: $document)
+                            TestPlanItemView(plan: plan, document: $document, selected: $selectedSidebarItem)
                         }
                     }
                 }
@@ -128,9 +119,11 @@ struct ContentView: View {
         case let .SideBar(.Adapter(adapter)):
             AnyView(adapter.contentView)
         case let .SideBar(.TestPlan(plan)):
-            TestPlanFlowView(testPlan: plan) {
-                newPlan in
-                document.testPlans = document.testPlans.map { $0.id == newPlan.id ? newPlan : $0 }
+            if let plan = document.testPlans.first(where: { $0.id == plan.id }) {
+                TestPlanFlowView(testPlan: plan) {
+                    newPlan in
+                    document.testPlans = document.testPlans.map { $0.id == newPlan.id ? newPlan : $0 }
+                }
             }
         default:
             EmptyStateView(iconName: "tray.full", title: "No detail to display", message: "Select an item to view details")

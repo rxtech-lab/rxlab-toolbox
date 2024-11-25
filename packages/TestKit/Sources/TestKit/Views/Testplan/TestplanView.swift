@@ -9,7 +9,6 @@ public struct TestPlanFlowView: View {
     let onChange: (TestPlan) -> Void
     
     @State private var selectedNode: TestStep?
-    @State private var showUpdatePopover = false
     @State private var nodeToUpdate: GroupStep?
     
     public init(testPlan: TestPlan, onChange: @escaping (TestPlan) -> Void) {
@@ -38,23 +37,20 @@ public struct TestPlanFlowView: View {
             .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity)
-        .popover(isPresented: $showUpdatePopover, arrowEdge: .trailing) {
-            if let node = nodeToUpdate {
-                GroupView(
-                    messageId: node.messageId,
-                    expectations: convertTestStepToExpectations(groupStep: node)
-                ) { expectations in
-                    handleExpectationUpdate(expectations: expectations)
-                }
-                .padding()
-                .frame(minWidth: 400, minHeight: 300)
+        .popover(item: $nodeToUpdate, arrowEdge: .trailing) { node in
+            GroupView(
+                messageId: node.messageId,
+                expectations: convertTestStepToExpectations(groupStep: node)
+            ) { expectations in
+                handleExpectationUpdate(expectations: expectations)
             }
+            .padding()
+            .frame(minWidth: 400, minHeight: 300)
         }
     }
 
     private func handleNodeSelection(step: GroupStep) {
         nodeToUpdate = step
-        showUpdatePopover = true
     }
     
     private func handleDeleteNode(step: TestStep) {
@@ -78,6 +74,7 @@ public struct TestPlanFlowView: View {
     private func handleExpectationUpdate(expectations: [ExpectionSelection]) {
         guard let nodeToUpdate = nodeToUpdate else { return }
         let newStep: TestStep = .group(GroupStep(
+            id: nodeToUpdate.id,
             name: nodeToUpdate.name,
             messageId: nodeToUpdate.messageId,
             children: expectations.map { selection in
@@ -198,9 +195,9 @@ struct NodeContentView: View {
         case .textInput(let step):
             return "⌨️ Input: \(step.text)"
         case .expectMessageText(let step):
-            return "📝 Expect Text (#\(step.messageId)): \(step.text.rawValue)"
+            return "📝 Expect message (#\(step.messageId)): \(step.text.rawValue)"
         case .expectMessageCount(let step):
-            return "🔢 Expect Count: \(step.count.rawValue)"
+            return "🔢 Expect messages count: \(step.count.rawValue)"
         case .group(let step):
             return "📁 \(step.name ?? "Group")"
         }

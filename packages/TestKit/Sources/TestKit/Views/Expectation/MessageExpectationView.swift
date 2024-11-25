@@ -26,17 +26,17 @@ struct MessageExpectationView: View {
     init(expectation: MessageExpectationOperator, onChange: OnMessageExpectationChange? = nil) {
         switch expectation {
         case .equals(let size):
-            self.size = size
-            operation = .equal
+            self._size = State(initialValue: size)
+            _operation = State(initialValue: .equal)
         case .greaterThan(let size):
-            self.size = size
-            operation = .greaterThan
+            self._size = State(initialValue: size)
+            _operation = State(initialValue: .greaterThan)
         case .lessThan(let size):
-            self.size = size
-            operation = .lessThan
+            self._size = State(initialValue: size)
+            _operation = State(initialValue: .lessThan)
         case .notEquals(let size):
-            self.size = size
-            operation = .notEqual
+            self._size = State(initialValue: size)
+            _operation = State(initialValue: .notEqual)
         }
         self.expectation = expectation
         self.onChange = onChange

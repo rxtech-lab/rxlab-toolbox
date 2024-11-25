@@ -102,11 +102,17 @@ struct GroupView: View {
             switch expectation {
             case .text(let messageId, let textOperator):
                 TextExpectationView(messageId: messageId, expection: textOperator) {
-                    _ in
+                    change in
+                    if let index = expectations.firstIndex(of: expectation) {
+                        expectations[index] = .text(messageId: messageId, expectation: change)
+                    }
                 }
             case .messages(let messageOperator):
                 MessageExpectationView(expectation: messageOperator) {
-                    _ in
+                    change in
+                    if let index = expectations.firstIndex(of: expectation) {
+                        expectations[index] = .messages(expectation: change)
+                    }
                 }
             }
 

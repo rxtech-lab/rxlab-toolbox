@@ -16,7 +16,7 @@ enum SideBarItem: Hashable {
         case .Adapter(let adapter):
             hasher.combine(adapter)
         case .TestPlan(let testPlan):
-            hasher.combine(testPlan)
+            hasher.combine(testPlan.id)
         }
     }
 

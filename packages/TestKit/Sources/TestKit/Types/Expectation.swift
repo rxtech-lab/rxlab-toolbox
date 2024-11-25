@@ -60,9 +60,9 @@ public enum TextExpectationOperator: Codable, Hashable {
     var rawValue: String {
         switch self {
         case .equals(let value): return value
-        case .notEquals(let value): return "!\(value)"
-        case .contains(let value): return "*\(value)"
-        case .notContains(let value): return "!*\(value)"
+        case .notEquals(let value): return "not eqauls to \(value)"
+        case .contains(let value): return "contains \(value)"
+        case .notContains(let value): return "not contains \(value)"
         }
     }
 }
