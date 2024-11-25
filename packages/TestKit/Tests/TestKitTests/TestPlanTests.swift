@@ -40,18 +40,17 @@ import Testing
 
 @Test func updateStep() async throws {
     let groupUUID = UUID()
-    let messageUUID = UUID()
     let testplan = TestPlan(name: "Hello World")
         .addStep(.textInput("Hello world"))
         .addStep(.buttonClick(.init(buttonText: "Hello", messageId: 1)))
         .addStep(.group(.init(id: groupUUID, children: [
-            .expectMessageText(.init(id: messageUUID, messageId: 0, text: .equals("Hello world"))),
+            .expectMessageText(.init(messageId: 0, text: .equals("Hello world"))),
             .expectMessageText(.init(messageId: 1, text: .equals("Hello")))
         ])))
 
-    let updatedPlan = testplan.updateStep(.expectMessageText(.init(messageId: 1, text: .equals("Goodbye"))), at: messageUUID)
-    let group = updatedPlan.steps[2].rawValue as! GroupStep
-    #expect((group.children[0].rawValue as! ExpectMessageTextStep).text == .equals("Goodbye"), "should update the correct step")
+    let updatedPlan = testplan.updateStep(.textInput("Goodbye"), at: groupUUID)
+    let text = updatedPlan.steps[2].rawValue as! TextInputStep
+    #expect(text.text == "Goodbye", "should update the correct step")
 }
 
 @Test func testDeletingSteps() async throws {

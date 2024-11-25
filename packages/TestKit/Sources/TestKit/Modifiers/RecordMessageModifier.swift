@@ -77,7 +77,7 @@ public struct RecordMessageModifier: ViewModifier {
             }
         }
 
-        return .group(.init(name: "group-\(index)", children: steps))
+        return .group(.init(name: "group-\(index)", messageId: index, children: steps))
     }
 
     // Adds or updates expectations in the TestPlan
@@ -99,8 +99,6 @@ public struct RecordMessageModifier: ViewModifier {
             testkitManager.testplan = updated
         }
     }
-
-    // He
 }
 
 public extension View {

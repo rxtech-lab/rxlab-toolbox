@@ -25,6 +25,15 @@ public enum MessageExpectationOperator: Codable, Hashable {
     case notEquals(Int)
     case greaterThan(Int)
     case lessThan(Int)
+    
+    var rawValue: String {
+        switch self {
+        case .equals(let value): return "=\(value)"
+        case .notEquals(let value): return "!=\(value)"
+        case .greaterThan(let value): return ">\(value)"
+        case .lessThan(let value): return "<\(value)"
+        }
+    }
 }
 
 /**
@@ -47,4 +56,13 @@ public enum TextExpectationOperator: Codable, Hashable {
     case notEquals(String)
     case contains(String)
     case notContains(String)
+    
+    var rawValue: String {
+        switch self {
+        case .equals(let value): return value
+        case .notEquals(let value): return "!\(value)"
+        case .contains(let value): return "*\(value)"
+        case .notContains(let value): return "!*\(value)"
+        }
+    }
 }

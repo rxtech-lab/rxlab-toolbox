@@ -52,7 +52,7 @@ struct GroupView: View {
     }
 
     var body: some View {
-        Group {
+        VStack {
             HStack {
                 Text("Add Expectations")
                     .font(.headline)
@@ -72,9 +72,13 @@ struct GroupView: View {
                 .menuIndicator(.hidden)
                 .menuStyle(.borderedButton)
             }
-            ForEach(expectations) { expectation in
-                buildExpectationView(expectation: expectation)
+            Divider()
+            ScrollView {
+                ForEach(expectations) { expectation in
+                    buildExpectationView(expectation: expectation)
+                }
             }
+            .frame(minHeight: 200)
             Divider()
             HStack {
                 Spacer()
@@ -107,7 +111,10 @@ struct GroupView: View {
             }
 
             Button {
-                self.expectations.removeAll { $0 == expectation }
+                let index = expectations.firstIndex(of: expectation)
+                if let index = index {
+                    expectations.remove(at: index)
+                }
             } label: {
                 Image(systemName: "trash")
             }
@@ -116,9 +123,7 @@ struct GroupView: View {
 }
 
 #Preview {
-    ScrollView {
-        GroupView(messageId: 1) { _ in
-        }
+    GroupView(messageId: 1) { _ in
     }
     .padding()
 }
