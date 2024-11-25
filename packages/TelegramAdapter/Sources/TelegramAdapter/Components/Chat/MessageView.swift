@@ -60,6 +60,7 @@ struct MessageView: View {
                 Spacer(minLength: min(200, 0.6 * size.width))
             }
         }
+        .recordMessage(at: index)
         .saveSize(in: $size)
         .frame(minWidth: 500)
     }
@@ -68,7 +69,6 @@ struct MessageView: View {
         VStack(alignment: message.userId == currentUserId ? .trailing : .leading, spacing: 8) {
             // Message bubble
             messageBubble
-                .recordMessage(at: index)
                 .background(
                     message.error != nil ? Color.red :
                         message.userId == currentUserId

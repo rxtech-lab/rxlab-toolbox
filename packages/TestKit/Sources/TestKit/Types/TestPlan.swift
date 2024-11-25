@@ -2,7 +2,7 @@ import Foundation
 
 /// A test plan that contains a sequence of test steps to be executed.
 /// Used to define automated test scenarios for user interactions.
-public struct TestPlan: Codable, Identifiable, Equatable {
+public struct TestPlan: Codable, Identifiable, Equatable, Hashable {
     public var id = UUID()
     public var name: String
     public var createdAt: Date = .init()

@@ -4,15 +4,22 @@ typealias OnDelete = (TestStep) -> Void
 
 typealias OnNodeSelected = (GroupStep) -> Void
 
-struct TestPlanFlowView: View {
-    @Binding var testPlan: TestPlan
+public struct TestPlanFlowView: View {
+    let testPlan: TestPlan
+    let onChange: (TestPlan) -> Void
+    
     @State private var selectedNode: TestStep?
     @State private var showUpdatePopover = false
     @State private var nodeToUpdate: GroupStep?
     
-    var body: some View {
+    public init(testPlan: TestPlan, onChange: @escaping (TestPlan) -> Void) {
+        self.testPlan = testPlan
+        self.onChange = onChange
+    }
+    
+    public var body: some View {
         ScrollView([.vertical]) {
-            LazyVStack(alignment: .center, spacing: 0) { // Changed alignment to .center
+            LazyVStack(alignment: .center, spacing: 0) {
                 ForEach(Array(testPlan.steps.enumerated()), id: \.element.rawValue.id) { index, step in
                     VStack(spacing: 0) {
                         TestPlanNodeView(
@@ -28,9 +35,9 @@ struct TestPlanFlowView: View {
                 }
             }
             .padding()
-            .frame(maxWidth: .infinity) // Added to ensure VStack takes full width
+            .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: .infinity) // Added to ensure ScrollView takes full width
+        .frame(maxWidth: .infinity)
         .popover(isPresented: $showUpdatePopover, arrowEdge: .trailing) {
             if let node = nodeToUpdate {
                 GroupView(
@@ -51,7 +58,8 @@ struct TestPlanFlowView: View {
     }
     
     private func handleDeleteNode(step: TestStep) {
-        testPlan = testPlan.deleteStep(at: step.rawValue.id)
+        let updatedPlan = testPlan.deleteStep(at: step.rawValue.id)
+        onChange(updatedPlan)
     }
     
     private func convertTestStepToExpectations(groupStep: GroupStep) -> [ExpectionSelection] {
@@ -82,7 +90,8 @@ struct TestPlanFlowView: View {
             }
         ))
         
-        testPlan = testPlan.updateStep(newStep, at: nodeToUpdate.id)
+        let updatedPlan = testPlan.updateStep(newStep, at: nodeToUpdate.id)
+        onChange(updatedPlan)
     }
 }
 
@@ -241,13 +250,13 @@ struct ConnectionLineView: View {
 
 #Preview {
     TestPlanFlowView(testPlan:
-        .constant(
-            .init(name: "Hello")
-                .addStep(.textInput("Hello"))
-                .addStep(.buttonClick(.init(buttonText: "Tap", messageId: 1)))
-                .addStep(.expectMessageText(.init(messageId: 1, text: .contains("Hello"))))
-                .addStep(.group(.init(messageId: 1).addChild(.expectMessageText(.init(messageId: 1, text: .contains("a")))).addChild(.expectMessageCount(.init(count: .lessThan(2))))))
-        )
-    )
+        .init(name: "Hello")
+            .addStep(.textInput("Hello"))
+            .addStep(.buttonClick(.init(buttonText: "Tap", messageId: 1)))
+            .addStep(.expectMessageText(.init(messageId: 1, text: .contains("Hello"))))
+            .addStep(.group(.init(messageId: 1).addChild(.expectMessageText(.init(messageId: 1, text: .contains("a")))).addChild(.expectMessageCount(.init(count: .lessThan(2)))))
+            )
+    ) { _ in
+    }
     .frame(width: 500)
 }

@@ -2,6 +2,7 @@ import Common
 import MockTelegramKit
 import SwiftUI
 import TelegramAdapter
+import TestKit
 
 struct ContentView: View {
     @Environment(SheetManager.self) var sheetManager
@@ -9,6 +10,7 @@ struct ContentView: View {
     @Environment(ConfirmManager.self) var confirmManager
     @Environment(AdapterManager.self) var adapterManager
     @Environment(MockTelegramKitManager.self) var mockTelegramKitManager
+    @Environment(TestkitManager.self) var testkitManager
     @Binding var document: RxToolboxDocument
     @State private var selectedSidebarItem: NavigationPath?
     @State private var selectedWebhookDetail: Webhook?
@@ -19,9 +21,6 @@ struct ContentView: View {
         NavigationSplitView {
             // Sidebar
             sidebarContent
-                .contextMenu {
-                    AdapterContextMenu(document: $document)
-                }
         } detail: {
             contentView
         }
@@ -59,6 +58,11 @@ struct ContentView: View {
             }
             await load()
         }
+        .onReceive(testkitManager.saveEvent, perform: { _ in
+            if let plan = testkitManager.testplan {
+                document.testPlans.append(plan)
+            }
+        })
         .onAppear {
             if !document.hasInitialized {
                 sheetManager.showSheet {
@@ -81,7 +85,7 @@ struct ContentView: View {
                 List(selection: $selectedSidebarItem) {
                     Section(AppStrings.adapterSection.rawValue) {
                         ForEach(adapterManager.adapters, id: \.id) { adapter in
-                            AdapterItemView(adapter: adapter)
+                            AdapterItemView(adapter: adapter, document: $document)
                         }
                     }
 
@@ -90,9 +94,21 @@ struct ContentView: View {
                     Section(AppStrings.apiSection.rawValue) {}
                 }
                 .listStyle(.sidebar)
+                .contextMenu {
+                    AdapterContextMenu(document: $document, adapter: nil)
+                }
             }
 
-            Tab("Test", systemImage: "flame") {}
+            Tab("Test", systemImage: "flame") {
+                List(selection: $selectedSidebarItem) {
+                    Section("Test Plans") {
+                        ForEach(document.testPlans) { plan in
+                            TestPlanItemView(plan: plan, document: $document)
+                        }
+                    }
+                }
+                .listStyle(.sidebar)
+            }
         }
         .frame(minWidth: 300)
     }
@@ -102,6 +118,11 @@ struct ContentView: View {
         switch selectedSidebarItem {
         case let .SideBar(.Adapter(adapter)):
             AnyView(adapter.contentView)
+        case let .SideBar(.TestPlan(plan)):
+            TestPlanFlowView(testPlan: plan) {
+                newPlan in
+                document.testPlans = document.testPlans.map { $0.id == newPlan.id ? newPlan : $0 }
+            }
         default:
             EmptyStateView(iconName: "tray.full", title: "No detail to display", message: "Select an item to view details")
         }

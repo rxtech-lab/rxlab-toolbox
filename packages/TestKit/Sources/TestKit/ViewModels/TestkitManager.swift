@@ -11,6 +11,7 @@ import SwiftUI
     public internal(set) var testplan: TestPlan?
     public var isTesting: Bool = false
     var currentMessageCount = 0
+    public var saveEvent: PassthroughSubject<Void, Never> = .init()
 
     public init() {
         testplan = TestPlan(name: "New Test Plan")
@@ -23,5 +24,10 @@ import SwiftUI
 
     public func stopTesting() {
         isTesting = false
+    }
+
+    public func save(with name: String) {
+        testplan?.name = name
+        saveEvent.send()
     }
 }
