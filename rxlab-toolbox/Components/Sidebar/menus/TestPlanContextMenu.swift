@@ -14,6 +14,7 @@ struct TestPlanContextMenu: View {
     @Binding var document: RxToolboxDocument
 
     @Environment(SheetManager.self) var sheetManager
+    @Environment(ConfirmManager.self) var confirmManager
     @State var name: String = ""
     @Binding var selected: NavigationPath?
 
@@ -51,9 +52,11 @@ struct TestPlanContextMenu: View {
             }
         }
         Button("Delete Test Plan") {
-            if let index = document.testPlans.firstIndex(of: plan) {
-                document.testPlans.remove(at: index)
-                selected = nil
+            confirmManager.showConfirmation(title: "Delete test plan", message: "Are you sure you want to delete the Test Plan") {
+                if let index = document.testPlans.firstIndex(of: plan) {
+                    document.testPlans.remove(at: index)
+                    selected = nil
+                }
             }
         }
         Menu("Export") {

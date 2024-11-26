@@ -38,6 +38,9 @@
     "API" : {
 
     },
+    "Are you sure you want to delete this test plan?" : {
+
+    },
     "Basic Information" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -80,6 +83,9 @@
     "Name" : {
 
     },
+    "No test plans available" : {
+
+    },
     "OK" : {
 
     },
@@ -106,6 +112,9 @@
 
     },
     "Test" : {
+
+    },
+    "Test Plan" : {
 
     },
     "Test Plans" : {

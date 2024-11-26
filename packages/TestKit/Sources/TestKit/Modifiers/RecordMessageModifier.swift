@@ -13,27 +13,39 @@ import SwiftUI
 public struct RecordMessageModifier: ViewModifier {
     @Environment(TestkitManager.self) var testkitManager
     let index: Int
-    @State var showPopover: Bool = false
+    @State var show: Bool = false
 
     init(at index: Int) {
         self.index = index
     }
 
     public func body(content: Content) -> some View {
+        let canUpdate = canUpdateOrDelete()
         Group {
             if !testkitManager.isTesting {
                 content
             } else {
                 content
                     .contextMenu {
-                        Button("\(convertTestPlanToExpectationSelection().count > 0 ? "Update" : "Add") expectation") {
-                            self.showPopover.toggle()
+                        Button("\(canUpdate ? "Update" : "Add") expectation") {
+                            self.show.toggle()
+                        }
+                        if canUpdate {
+                            Button("Remove expectation") {
+                                removeExpectation()
+                            }
                         }
                     }
-                    .popover(isPresented: $showPopover, arrowEdge: .trailing) {
+                    .popover(isPresented: $show, arrowEdge: .trailing) {
                         ScrollView {
-                            GroupView(messageId: index, expectations: convertTestPlanToExpectationSelection()) { expectations in
-                                addOrUpdateExpectation(selections: expectations)
+                            if canUpdate {
+                                GroupView(messageId: index, expectations: convertTestPlanToExpectationSelection()) { expectations in
+                                    addOrUpdateExpectation(selections: expectations)
+                                }
+                            } else {
+                                GroupView(messageId: index) { expectations in
+                                    addOrUpdateExpectation(selections: expectations)
+                                }
                             }
                         }
                         .padding()
@@ -43,18 +55,45 @@ public struct RecordMessageModifier: ViewModifier {
         }
     }
 
+    func removeExpectation() {
+        guard let testplan = testkitManager.testplan else {
+            return
+        }
+
+        guard let step = testplan.steps.last else {
+            return
+        }
+        testkitManager.testplan = testplan.deleteStep(at: step.rawValue.id)
+    }
+
+    func canUpdateOrDelete() -> Bool {
+        // if testplan is empty
+        guard let testplan = testkitManager.testplan else {
+            return false
+        }
+        // check if the last plan is group
+        let lastStep = testplan.steps.last
+        if case .group = lastStep {
+            return true
+        }
+        return false
+    }
+
     // Converts TestPlan steps to ExpectationSelection array
     func convertTestPlanToExpectationSelection() -> [ExpectionSelection] {
         guard let testPlan = testkitManager.testplan, !testPlan.steps.isEmpty else {
             return []
         }
 
-        let targetSteps = findStepsForIndex(index: index, steps: testPlan.steps)
-        guard !targetSteps.isEmpty else {
+        guard let lastStep = testPlan.steps.last else {
             return []
         }
 
-        return targetSteps.compactMap { step in
+        guard case .group(let group) = lastStep else {
+            return []
+        }
+
+        return group.children.compactMap { step in
             switch step {
             case .expectMessageCount(let expectation):
                 return .messages(expectation: expectation.count)
@@ -85,13 +124,19 @@ public struct RecordMessageModifier: ViewModifier {
         guard let testplan = testkitManager.testplan else {
             return
         }
-
         let step = convertExpectationSelectionToTestStep(selections: selections)
-        let groupId = findGroupIdForIndex(index: index, steps: testplan.steps)
+        let canUpdate = canUpdateOrDelete()
 
-        if let groupId = groupId {
+        if canUpdate {
             // Update existing group
-            let updated = testplan.updateStep(step, at: groupId)
+            guard let lastStep = testplan.steps.last else {
+                return
+            }
+
+            guard case .group(let group) = lastStep else {
+                return
+            }
+            let updated = testplan.updateStep(step, at: group.id)
             testkitManager.testplan = updated
         } else {
             // Add new group

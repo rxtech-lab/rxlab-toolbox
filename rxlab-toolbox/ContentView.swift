@@ -102,6 +102,9 @@ struct ContentView: View {
             Tab("Test", systemImage: "flame") {
                 List(selection: $selectedSidebarItem) {
                     Section("Test Plans") {
+                        if document.testPlans.isEmpty {
+                            Text(AppStrings.Testplan.noTestplanDescription.rawValue)
+                        }
                         ForEach(document.testPlans) { plan in
                             TestPlanItemView(plan: plan, document: $document, selected: $selectedSidebarItem)
                         }

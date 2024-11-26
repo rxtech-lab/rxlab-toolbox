@@ -97,6 +97,8 @@ struct TestPlanNodeView: View {
     let onNodeSelected: OnNodeSelected
     let onDelete: OnDelete?
     
+    @State var isHovering = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             nodeContent
@@ -122,7 +124,39 @@ struct TestPlanNodeView: View {
                         }
                     }
                 }
+               
+            if isHovering {
+                nodeAction
+            }
             Spacer()
+        }
+        .onHover { hover in
+            withAnimation {
+                // only nodes outside of a group can be deleted
+                if onDelete != nil {
+                    isHovering = hover
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder private var nodeAction: some View {
+        VStack {
+            Button {} label: {
+                Image(systemName: "arrow.up")
+            }
+            .padding(4)
+            .background(.white)
+            .clipShape(Circle())
+            .buttonStyle(.borderless)
+            
+            Button {} label: {
+                Image(systemName: "arrow.down")
+            }
+            .padding(4)
+            .background(.white)
+            .clipShape(Circle())
+            .buttonStyle(.borderless)
         }
     }
     
