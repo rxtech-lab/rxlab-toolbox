@@ -22,4 +22,11 @@ enum AppStrings: LocalizedStringKey {
     enum Telegram: LocalizedStringKey {
         case adapterName = "Telegram Adapter"
     }
+
+    enum Testplan: LocalizedStringKey {
+        case testplanName = "Test Plan"
+        case deleteTestplanConfirmation = "Are you sure you want to delete this test plan?"
+        case deleteButton = "Delete Test Plan"
+        case noTestplanDescription = "No test plans available"
+    }
 }
