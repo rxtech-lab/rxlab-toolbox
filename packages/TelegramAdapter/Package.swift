@@ -16,7 +16,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/rxtech-lab/mock-telegram-server", from: "1.3.4"),
+        .package(url: "https://github.com/rxtech-lab/mock-telegram-server", from: "1.3.6"),
         .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.7.6"),
         .package(path: "../Common"),
         .package(path: "../TestKit"),

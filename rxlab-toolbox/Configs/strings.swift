@@ -29,4 +29,9 @@ enum AppStrings: LocalizedStringKey {
         case deleteButton = "Delete Test Plan"
         case noTestplanDescription = "No test plans available"
     }
+
+    enum Tools: LocalizedStringKey {
+        case toolsSection = "Tools"
+        case editTelegramWebhook = "Edit Telegram Webhook"
+    }
 }
