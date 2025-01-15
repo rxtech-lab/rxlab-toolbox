@@ -17,4 +17,13 @@ struct WebhookInfo: Codable {
     let lastErrorMessage: String?
     let maxConnections: Int?
     let ipAddress: String?
+
+    enum CodingKeys: String, CodingKey {
+        case url
+        case pendingUpdateCount = "pending_update_count"
+        case lastErrorDate = "last_error_date"
+        case lastErrorMessage = "last_error_message"
+        case maxConnections = "max_connections"
+        case ipAddress = "ip_address"
+    }
 }

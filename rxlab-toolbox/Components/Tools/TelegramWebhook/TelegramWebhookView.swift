@@ -13,21 +13,47 @@ struct TelegramWebhookView: View {
     @AppStorage("isUsingSecret") private var useSecret: Bool = false
     @AppStorage("telegramSecret") private var secret: String = ""
 
+    @State private var webhookInfo: TelegramWebhookInfo?
+
     @Environment(AlertManager.self) var alert
 
     @State var hasLoadedWebhookInfo = false
     @State var isLoadingWebhookInfo = false
+    @State var showErrorMessage = false
 
     var body: some View {
         Form {
             Section {
-                TextField("API Key", text: $apiKey)
-                    .disableAutocorrection(true)
-                    .onSubmit {
-                        Task {
-                            await loadWebhookInfo()
+                HStack {
+                    TextField("API Key", text: $apiKey)
+                        .disableAutocorrection(true)
+                        .onSubmit {
+                            Task {
+                                await loadWebhookInfo()
+                            }
+                        }
+
+                    if let message = webhookInfo?.result.lastErrorMessage {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(.white)
+                            .background(Color.red)
+                            .clipShape(Circle())
+                            .onTapGesture {
+                                showErrorMessage.toggle()
+                            }
+                            .popover(isPresented: $showErrorMessage) {
+                                Text(message)
+                                    .padding()
+                            }
+                    } else {
+                        if hasLoadedWebhookInfo {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(.white)
+                                .background(Color.green)
+                                .clipShape(Circle())
                         }
                     }
+                }
                 if hasLoadedWebhookInfo {
                     TextField("Webhook URL", text: $webhook)
                 }
@@ -70,6 +96,7 @@ extension TelegramWebhookView {
 
             webhook = webhookInfo.result.url ?? ""
             hasLoadedWebhookInfo = true
+            self.webhookInfo = webhookInfo
 
         } catch {
             print(error)
